@@ -1,0 +1,27 @@
+<html>
+
+<head><title>New source</title></head>
+
+<body>
+
+	<h1>New source</h1>
+
+	<form action="/sources/add_submit" method="post">
+		{% csrf_token %}
+		First name:<input type="text" name="first_name" value="" /><br />
+		Last name:<input type="text" name="last_name" value="" /><br />
+		Job title:<input type="text" name="job_title" value="" /><br />
+		Company:<input type="text" name="company" value="" /><br />
+		Comments:<textarea name="comments" rows="10" cols="20"></textarea><br />
+		<!--Quotes: <textarea name="quotes" rows="10" cols="20"></textarea><br />-->
+		<input type="submit" value="Save"/>
+	</form>
+
+	<br /><br />
+	Return to <a href="/stories">article list. </a>
+	<br /><br />
+	Return to <a href="/sources">sources. </a>
+	
+</body>
+</html>
+

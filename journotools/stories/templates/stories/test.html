@@ -1,0 +1,22 @@
+<html>
+
+<head>TEST PAGE</head>
+
+<body>
+
+</br></br>
+
+<table>
+	{% for Source in source_list %}
+		<tr>	
+			<td>{{Source.first_name}}</td>
+			<td>{{Source.last_name}}</td>
+			<td>{{Source.company}}</td>
+			<td>{{Source.number_of_articles}}</td>
+		</tr>	
+	{% endfor %}
+</table>	
+		
+
+</body>
+</html>

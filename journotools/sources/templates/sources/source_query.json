@@ -1,0 +1,5 @@
+[
+{% for Source in source_list %}
+	{"id":"{{Source.id}}","name":"{{Source}}"}{%if not forloop.last%},{%endif%}
+{% endfor %}
+]

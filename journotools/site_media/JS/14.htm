@@ -1,0 +1,79 @@
+
+<!-- saved from url=(0031)http://127.0.0.1:8000/quotes/14 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript" src="./14_files/jquery.min.js"></script>
+<script type="text/javascript" src="./14_files/jquery.tokeninput.js"></script>
+<script type="text/javascript" src="./14_files/json2.js"></script>
+<link rel="stylesheet" href="./14_files/token-input.css" type="text/css">
+</head><body>
+<b>Transcript -- by <a href="http://127.0.0.1:8000/sources/5">Ali Baba</a>.
+<br><br>
+PUT DATE HERE. </b>
+<br>
+<br>
+One-to-one relationships
+One-to-one relationships are very similar to many-to-one relationships. If you define a OneToOneField on your model, instances of that model will have access to the related object via a simple attribute of the model.
+
+For example:
+
+class EntryDetail(models.Model):
+    entry = models.OneToOneField(Entry)
+    details = models.TextField()
+
+ed = EntryDetail.objects.get(id=2)
+ed.entry # Returns the related Entry object.
+The difference comes in "reverse" queries. The related model in a one-to-one relationship also has access to a Manager object, but that Manager represents a single object, rather than a collection of objects:
+
+e = Entry.objects.get(id=2)
+e.entrydetail # returns the related EntryDetail object
+If no object has been assigned to this relationship, Django will raise a DoesNotExist exception.
+
+Instances can be assigned to the reverse relationship in the same way as you would assign the forward relationship:
+
+e.entrydetail = ed
+How are the backward relationships possible?
+<br>
+<br>
+<a href="" onclick="$(&#39;#edit_transcript_box&#39;).slideToggle();return false;" id="edit_transcript"> EDIT THIS TRANSCRIPT</a> 
+	<div id="edit_transcript_box" style="border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-color: initial; width: 400px; ">
+	<form action="http://127.0.0.1:8000/quotes/14/edit" method="post">
+		
+		<textarea name="transcript" rows="20" cols="100">One-to-one relationships
+One-to-one relationships are very similar to many-to-one relationships. If you define a OneToOneField on your model, instances of that model will have access to the related object via a simple attribute of the model.
+
+For example:
+
+class EntryDetail(models.Model):
+    entry = models.OneToOneField(Entry)
+    details = models.TextField()
+
+ed = EntryDetail.objects.get(id=2)
+ed.entry # Returns the related Entry object.
+The difference comes in "reverse" queries. The related model in a one-to-one relationship also has access to a Manager object, but that Manager represents a single object, rather than a collection of objects:
+
+e = Entry.objects.get(id=2)
+e.entrydetail # returns the related EntryDetail object
+If no object has been assigned to this relationship, Django will raise a DoesNotExist exception.
+
+Instances can be assigned to the reverse relationship in the same way as you would assign the forward relationship:
+
+e.entrydetail = ed
+How are the backward relationships possible?</textarea><br>
+		<input type="submit" value="Save">
+	</form>
+	</div>
+
+
+<br>
+<br>
+<a href="http://127.0.0.1:8000/sources/5">See all transcripts by this source.</a>
+<br>
+<br>
+Return to <a href="http://127.0.0.1:8000/sources"> list of sources. </a>
+<br>
+Return to <a href="http://127.0.0.1:8000/quotes"> transcripts. </a>
+<br>
+Return to <a href="http://127.0.0.1:8000/stories"> articles. </a>
+
+</body></html>

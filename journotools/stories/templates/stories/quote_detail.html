@@ -1,0 +1,39 @@
+<html>
+
+<head><head/>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="/site_media/JS/jquery.tokeninput.js"></script>
+<script type="text/javascript" src="/site_media/JS/json2.js"></script>
+<link rel="stylesheet" href="/site_media/CSS/token-input.css" type="text/css" />
+<body>
+<b>Transcript -- by <a href="/sources/{{Quote.source.id}}">{{Quote.source}}</a>.
+<br/><br/>
+PUT DATE HERE. </b>
+<br/>
+<br/>
+{{Quote.content}}
+<br/>
+<br/>
+<a href='' onClick="$('#edit_transcript_box').slideToggle();return false;" id="edit_transcript"> EDIT THIS TRANSCRIPT</a> 
+	<div id="edit_transcript_box" style="border:1px solid; width:400px;display:none;">
+	<form action="/quotes/{{Quote.id}}/edit" method="post">
+		{% csrf_token %}
+		<textarea name="transcript" rows="20" cols="100">{{Quote.content}}</textarea><br />
+		<input type="submit" value="Save"/>
+	</form>
+	</div>
+
+
+<br/>
+<br/>
+<a href="/sources/{{Quote.source.id}}">See all transcripts by this source.</a>
+<br/>
+<br/>
+Return to <a href="/sources"> list of sources. </a>
+<br/>
+Return to <a href="/quotes"> transcripts. </a>
+<br/>
+Return to <a href="/stories"> articles. </a>
+<body/>
+<html/>

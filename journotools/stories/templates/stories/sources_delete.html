@@ -1,0 +1,33 @@
+<html>
+
+<head><title>{{Source}}</title></head>
+
+<body>
+	<h1>{{Source}}</h1>
+	
+	{% if number_of_articles == 1 %}
+		<h2>Warning! This source is linked to one article.</h2>
+	{% endif %}
+	
+	{% if number_of_articles > 1 %}
+		<h2>Warning! This source is linked to {{number_of_articles}} articles.</h2>
+	{% endif %}
+	
+	Are you sure you want to delete it?
+	
+		<form action="/sources/{{Source.id}}/delete_submit" method="post">
+			{% csrf_token %}
+			<input type="submit" name="choice" value="Yes">
+			<input type="submit" name="choice" value="No">
+		</form>
+	
+	<br/>
+	
+	Return to <a href="/sources/{{Source.id}}/edit">edit the source</a> or to the <a href="/sources">list of sources.</a>
+
+	<br/><br/>
+	
+	Click here to return to the <a href="/stories">homepage</a>.
+
+</body>
+</html>

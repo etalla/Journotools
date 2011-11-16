@@ -1,0 +1,28 @@
+<html>
+
+	<head>
+		<title>Delete {{Article}}</title>
+	</head>
+
+	<body>
+		<h1><a href="/stories/{{Article.id}}">{{Article}}</a></h1>
+		
+		<br />
+
+		Are you sure you want to delete this article?
+
+		<form action="/stories/{{Article.id}}/delete_submit" method="post">
+			{% csrf_token %}
+			<input type="submit" name="choice" value="Yes">
+			<input type="submit" name="choice" value="No">
+		</form>
+
+		Return to <a href="/stories/{{Article.id}}/edit">edit the article</a> or to the <a href="/stories">homepage</a>.
+		
+		<br /> <br /> 
+		
+		Go to list of <a href="/sources">sources. </a>
+
+	</body>
+	
+</html>

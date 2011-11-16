@@ -1,0 +1,33 @@
+<html>
+{% load stories_extras %}
+
+<head>
+	<title>{{ Article }}</title>
+</head>
+
+<body>
+	<h1>    {{ Article }}          </h1>
+	<p>     {{ Article.pub_date }} </p>
+	<h4><i> {{ Article.lead }}     </h4></i>
+	<p>     {{ Article.content}}   </p>
+	<br/> 
+	<text style="font-family:arial;color:#787878;font-size:15;font-style:italic">Status -- </text>{{ status_dict|hash:Article.status }}
+		<br/><br/> 
+	<text style="font-family:arial;color:#787878;font-size:15;font-style:italic">Category -- </text>{{ category_dict|hash:Article.category }}
+		<br/><br/> 
+	<text style="font-family:arial;color:#787878;font-size:15;font-style:italic">Notes -- </text>{{ Article.notes }}
+		<br/><br/> 
+	<text style="font-family:arial;color:#787878;font-size:15;font-style:italic">Sources -- </text><br/> 
+		{% for i in list %}
+			<a href="/sources/{{i.id}}">{{i}}</a><br/> 
+		{% endfor %}
+		<br/><br/> 
+	<a href="/stories/{{Article.id}}/edit">Edit</a>
+		<br/><br/> 
+	<a href="/stories">Return to articles</a>
+		<br/><br/> 
+	<a href="/stories/{{Article.id}}/delete">Delete</a>
+		<br/><br/> 
+	Go to <a href="/sources">list of sources.</a><br/> 
+</body>
+</html>

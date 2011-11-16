@@ -1,0 +1,76 @@
+<html>
+
+<head>
+	<title>Sources</title>
+</head>
+
+<body>
+
+	<h1>Sources</h1>
+
+	<a href="/sources/add">Add new source</a>
+	
+	<br /> <br />
+			<table>
+				<tr>
+					<td>
+						{% if order_by == 'first_name' and sort_by == 'asc' %}
+								<a href='/sources/?order_by=first_name&sort_by=desc' > First name</a>
+						{% else%}
+								<a href='/sources/?order_by=first_name&sort_by=asc' > First name </a>			
+						{% endif%}
+					</td>
+					<td>
+						{% if order_by == 'last_name' and sort_by == 'asc' %}
+								<a href='/sources/?order_by=last_name&sort_by=desc' > Last name</a>
+						{% else%}
+								<a href='/sources/?order_by=last_name&sort_by=asc' > Last name</a>			
+						{% endif%}
+					</td>
+					<td>
+						{% if order_by == 'company' and sort_by == 'asc' %}
+								<a href='/sources/?order_by=company&sort_by=desc' > Company</a>
+						{% else%}
+								<a href='/sources/?order_by=company&sort_by=asc' > Company</a>			
+						{% endif%}
+					</td>
+					<td>Action</td>
+					<td>Comments</td>
+					<td>
+						{% if order_by == 'number_of_articles' and sort_by == 'asc' %}
+							<a href='/sources/?order_by=number_of_articles&sort_by=desc' >Related articles</a>
+						{% else%}
+							<a href='/sources/?order_by=number_of_articles&sort_by=asc' >Related articles</a>			
+						{% endif%}
+					</td>
+					<td>
+						{% if order_by == 'pub_date' and sort_by == 'asc' %}
+							<a href='/sources/?order_by=pub_date&sort_by=desc' >Date created</a>
+						{% else%}
+							<a href='/sources/?order_by=pub_date&sort_by=asc' >Date created</a>			
+						{% endif%}
+					</td>
+				</tr>	
+				{% for Source in source_list %}
+					<tr>
+						<td>{{Source.first_name}}</td>
+						<td>{{Source.last_name}}</td>
+						<td>{{Source.company}}</td>
+						<td><a href="/sources/{{ Source.id }}/">  View  </a>;<a href="/sources/{{ Source.id }}/edit">  Edit  </a>;<a href="/sources/{{ Source.id }}/delete">  Delete </a></td>
+						<td>{{Source.comments}}</td>
+						<td align="center">{{Source.number_of_articles}}</td>
+						<td>{{Source.pub_date}}</td>
+					</tr>
+				{% endfor %}
+			</table>
+
+	<br /><br />
+	
+	Return to <a href="/stories">article list. </a>
+	
+	<br />	
+	<!--Return to <a href="/quotes">transcripts. </a>-->
+	
+</body>
+</html>
+<!-- THIS WILL HAVE A SEARCH FUNCTION. SORT FUNCTION BY NAME, TOPIC ETC... -->

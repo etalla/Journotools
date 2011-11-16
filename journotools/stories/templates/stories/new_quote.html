@@ -1,0 +1,93 @@
+<html>
+{% load stories_extras %}
+<head> </head>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="/site_media/JS/jquery.tokeninput.js"></script>
+<script type="text/javascript" src="/site_media/JS/json2.js"></script>
+<link rel="stylesheet" href="/site_media/CSS/token-input.css" type="text/css" />
+
+<body>
+
+
+<script type="text/javascript">
+	$(document).ready(function () {
+	  $("#sources").tokenInput("http://127.0.0.1:8000/sources/source_query", {
+				hintText: "Type in the names of your sources",
+				noResultsText: "No results",
+				searchingText: "Searching...",
+				prePopulate: [{% for Source in Quote.source.all %}
+								{"id":"{{Source.id}}","name":"{{Source}}"}{%if not forloop.last%},{%endif%}
+							{% endfor %}]
+			});
+	});	
+</script>
+	
+<script>
+	function submit_new_source(){
+		var sources = {}; 
+		//squigglies announce object
+		sources.first_name=$('#new_source_form > #first_name').val(); // the ">" sign tells it to indicate the text in the form box. Called selectors. Part of CSS.
+		sources.last_name=$('#new_source_form > #last_name').val();
+		sources.job_title=$('#new_source_form > #job_title').val();
+		sources.company=$('#new_source_form > #company').val();
+		sources.comments=$('#new_source_form > #comments').val();
+		//inps = $('#new_source_form > input, #new_source_form > textarea');
+		//inps.each(function(key, value){	
+			//sources.push([$(value).attr('name'),$(value).val()]);
+			//});	
+		//alert(JSON.stringify(sources));
+		if (sources.first_name=="" && sources.last_name==""){
+			alert("Please enter a first or last name... DUH.")
+		} 
+		else {
+			$.ajax({
+				type:'POST',
+				url:'/stories/add_source_api',
+				data:JSON.stringify(sources),
+				success: function(data){
+						data = JSON.parse(data);
+						//console.log(data, data.id, data.first_name + " " + data.last_name);
+						$.TokenList.add_token_api(data.id, data.first_name + " " + data.last_name);
+						//$('#new_source_box').slideToggle();
+						$('#new_source_form').children().each(function(index, value){
+							$(value).val("");
+						});
+					},
+			});
+		}
+	}
+</script>
+
+	
+	
+<form action="/stories/submit_new_quote" method="post">
+{% csrf_token %}
+Quote: <textarea name="content" value="" rows="5" cols="50"></textarea><br />
+<!--Source: <input type="text" name="source" value="" /><br />
+Article(s): <input type="text" name="articles" value="" /><br />-->
+Source: <input type="text" name="sources" id="sources"/><br />  
+<input type="submit" value="Save"/>
+</form>
+
+
+<a href='' onClick="$('#new_source_box').slideToggle();return false;" id="add_new_source"> Add a new source <i>(Click to close this window)</i></a> <!--THE DOLLAR SIGN ANNOUNCES JQUERY. CAN ALSO BE REPLACED BY "JQUERY"-->
+	
+	<div id="new_source_box" style="border:1px solid; width:400px;display:none;">
+	<form id="new_source_form" method="post">
+		{% csrf_token %}
+		<!--<input type="hidden" name ="article_id" value="{{Article.id}}">-->
+		First name: <input type="text" id="first_name" value="" /><br />
+		Last name: <input type="text" id="last_name" value="" /><br />
+		Job title: <input type="text" id="job_title" value="" /><br />
+		Company: <input type="text" id="company" value="" /><br />
+		Comments: <textarea id="comments" rows="2" cols="20"> </textarea><br />
+		<button onClick="submit_new_source(); return false;"> Save </button>
+		<!--<button onClick="submit_new_source(); return false;"> Save and add another </button>-->
+		<!--<button onClick="submit_new_source(); return false;"> Clear </button>-->
+	</form>
+	</div> <!--THE BIT INSIDE "STYLE" IS CSS  .each(function alert(this.val());	});	-->
+	
+
+</body>
+</html>

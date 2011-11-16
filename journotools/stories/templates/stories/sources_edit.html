@@ -1,0 +1,30 @@
+<html>
+
+<head><title>Edit {{Source}}</title></head>
+<body>
+	<h1>Edit {{Source}}</h1>
+	
+	Return to <a href="/sources">list of sources.</a>
+	
+	<br /><br />
+
+	<form action="/sources/{{Source.id}}/edit_submit" method="post">
+		{% csrf_token %}
+		First name:<input type="text" name="first_name" value="{{Source.first_name}}" /><br />
+		Last name:<input type="text" name="last_name" value="{{Source.last_name}}" /><br />
+		Job title:<input type="text" name="job_title" value="{{Source.job_title}}" /><br />
+		Company:<input type="text" name="company" value="{{Source.company}}" /><br />
+		Comments:<textarea name="comments" rows="10" cols="20">{{Source.comments}}</textarea><br />
+		<!--Quotes: <textarea name="quotes" rows="10" cols="20"> {{Source.quotes}}</textarea><br />-->
+		<!-- Content: <textarea name="content" rows="2" cols="20">{{Article.content}}</textarea><br /> -->
+		<input type="submit" value="Save"/>
+	</form>
+
+	<br /><br />
+	Return to <a href="/stories">article list.</a>
+	<br /><br />
+	Return to <a href="/sources">sources.</a>
+	
+</body> 
+</html>
+<!-- TO THIS ONE, WILL ADD: SAVE AND ADD ANOTHER; SAVE AND CONTINUE EDITING; SAVE AND CLOSE;)-->
