@@ -71,7 +71,6 @@ TEMPLATE_DIRS = (
 	"C:\Documents and Settings\eva\Desktop\My Dropbox\Programming\Django\journotools\stories\templates\stories"
 	#"C:\Documents and Settings\eva\Desktop\My Dropbox\Programming\Django\journotools\sources\templates\sources"
 	)
-	
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -90,6 +89,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:'django.contrib.admindocs',
 )
 STATICFILES_DIRS = (
-    ("site_media", "site_media"),
+    ("site_media", "/site_media"),
 )
 STATIC_URL = '/static/'
