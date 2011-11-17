@@ -90,6 +90,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:'django.contrib.admindocs',
 )
 STATICFILES_DIRS = (
-    ("site_media", "C:\Documents and Settings\e_tallaksen\Mine dokumenter\Dropbox\Programming\Django\journotools\site_media"),
+    ("site_media", "site_media"),
 )
 STATIC_URL = '/static/'
