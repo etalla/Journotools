@@ -9,7 +9,11 @@
 	<h1>    {{ Article }}          </h1>
 	<p>     {{ Article.pub_date }} </p>
 	<h4><i> {{ Article.lead }}     </h4></i>
+	
+	{% autoescape off %}
 	<p>     {{ Article.content}}   </p>
+	{% endautoescape %}
+
 	<br/> 
 	<text style="font-family:arial;color:#787878;font-size:15;font-style:italic">Status -- </text>{{ status_dict|hash:Article.status }}
 		<br/><br/> 

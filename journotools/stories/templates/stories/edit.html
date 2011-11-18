@@ -1,11 +1,12 @@
 <html>
 	<head>
 		<title>Edit {{Article}}</title>
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-		<script type="text/javascript" src="/static/site_media/JS/jquery.tokeninput.js"></script>
-		<script type="text/javascript" src="/static/site_media/JS/json2.js"></script>
-		<link rel="stylesheet" href="/static/site_media/CSS/token-input.css" type="text/css" />
 		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+		<script type="text/javascript" src="http://opadoi.gr/journotools_static/JS/jquery.tokeninput.js"></script>
+		<script type="text/javascript" src="http://opadoi.gr/journotools_static/JS/json2.js"></script>
+		<link rel="stylesheet" href="http://opadoi.gr/journotools_static/CSS/token-input.css" type="text/css"/>
+
 		<script type="text/javascript">
 		$(document).ready(function () {
 		  $("#sources").tokenInput("http://127.0.0.1:8000/sources/source_query", {
@@ -55,18 +56,99 @@
 			}
 		}
 		</script>
+		
+		<!--SCRIPTS FOR DIJI EDITOR.-->
+		<!-- Not sure if we need this one? -->
+		<meta charset="utf-8">
+		
+		<!-- CSS stylesheets -->
+		<link rel="stylesheet" href="http://dojotoolkit.org/documentation/tutorials/1.6/editor/demo/style.css" media="screen">
+		<link rel="stylesheet" href="http://dojotoolkit.org/documentation/tutorials/1.6/resources/style/demo.css" media="screen">
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css" />
+
+		<!-- These two are not essential, but makes it look wee bit nicer -->
+		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dojo/resources/dojo.css"> 
+		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dijit/themes/tundra/tundra.css"> 
+		
+		<!-- These are for the dojox plugins -->
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/editorPlugins.css"/>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/PageBreak.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Breadcrumb.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Preview.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Save.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/ShowBlockNodes.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Preview.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Save.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/FindReplace.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/PasteFromWord.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/InsertAnchor.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/CollapsibleToolbar.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Blockquote.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/SpellCheck.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/InsertEntity.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/StatusBar.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/PasteFromWord.css" />
+		
+		<!-- This is for the dijit editor-->
+		<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojo/dojo.xd.js" data-dojo-config="isDebug: true,parseOnLoad: true"></script>
+
 	</head>
 
-	<body>
+	<body class="claro">
 		Return to <a href="/stories">article list.</a>
 		<br />	<br />
 		
+		
+	<script>
+			dojo.require("dijit.Editor");
+			dojo.require("dijit._editor.plugins.FontChoice"); dojo.require("dojox.editor.plugins.TextColor"); 
+			dojo.require("dijit._editor.plugins.Print"); dojo.require("dijit._editor.plugins.ToggleDir"); 
+			dojo.require("dojox.editor.plugins.PageBreak"); dojo.require("dojox.editor.plugins.Preview");
+			dojo.require("dojox.editor.plugins.Save"); dojo.require("dojox.editor.plugins.Breadcrumb");
+			dojo.require("dojox.editor.plugins.SpellCheck");dojo.require("dojox.editor.plugins.InsertEntity");
+			dojo.require("dojox.editor.plugins.Blockquote"); dojo.require("dijit._editor.plugins.LinkDialog"); 
+			dojo.require("dojox.editor.plugins.InsertAnchor"); dojo.require("dojox.editor.plugins.FindReplace"); 
+			dojo.require("dojox.editor.plugins.ShowBlockNodes"); dojo.require("dojox.editor.plugins.PasteFromWord");
+			dojo.require("dijit._editor.plugins.ViewSource"); dojo.require("dijit._editor.plugins.FullScreen"); 
+			dojo.require("dojox.editor.plugins.InsertEntity"); dojo.require("dojox.editor.plugins.CollapsibleToolbar"); 
+			dojo.require("dojox.editor.plugins.NormalizeIndentOutdent"); dojo.require("dojox.editor.plugins.PrettyPrint"); 		
+			dojo.require("dijit._editor.plugins.TextColor");dojo.require("dijit._editor.plugins.AlwaysShowToolbar");
+			dojo.require("dojox.editor.plugins.PasteFromWord"); 	
+	</script>
+
+	<!-- CSS CODE TO RESIZE TEXT AREA-->
+	<style type="text/css">
+		div.resize {
+			width: 700px;
+			height: 300px;
+			border: 1px solid;
+			resize: both;
+			overflow: auto;
+		}
+		div.horizontal {
+			resize: horizontal;
+			max-width: 700px;
+			min-width: 200px;
+		}
+		div.vertical {
+			resize: vertical;
+			max-height: 2000px;
+			min-height: 200px;
+		}
+	</style>
+	
 		<form action="/stories/{{Article.id}}/edit_submit" method="post">
 			{% csrf_token %}
 			<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Title</text><br /><input type="text" name="title" size = "50" value="{{Article.title}}" /><br />
 			<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Subhead</text><br /><input type="text" name="lead" size = "120" value="{{Article.lead}}" /><br />
-			<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Body</text><br /><textarea name="content" rows="20" cols="120">{{Article.content}}</textarea><br />
-			
+			<textarea name="content" class="resize"
+			data-dojo-type="dijit.Editor" 
+			data-dojo-props="extraPlugins:['collapsibletoolbar','Fullscreen','|','Print','|','createLink','insertImage','|','findreplace','|',
+											'fontName','fontSize','formatBlock','|','normalizeindentoutdent',
+											'blockquote','pagebreak','preview','save','breadcrumb','insertentity','|',
+											'foreColor','hiliteColor','pastefromword','dijit._editor.plugins.AlwaysShowToolbar']">
+			{{Article.content}}
+			</textarea>	
 			<select name="status">
 			  <option value="to_start"    {% if Article.status == "to_start"    %} selected {%endif%}>To start</option>
 			  <option value="in_progress" {% if Article.status == "in_progress" %} selected {%endif%}>In progress</option>
