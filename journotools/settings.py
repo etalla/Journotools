@@ -88,6 +88,7 @@ INSTALLED_APPS = (
 	#'sources',
     # Uncomment the next line to enable admin documentation:'django.contrib.admindocs',
 )
+
 STATICFILES_DIRS = (
     ("site_media", "site_media"),
 )
