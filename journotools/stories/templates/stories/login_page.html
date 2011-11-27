@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<title>Login</title>
+	</head>	
+		
+	<body>			
+		
+	Not registered? Sign up as a new user.	
+		<form action="/register" method="post" name="register">
+			{% csrf_token %}
+			Enter:<br />
+				Username <input type="text" name="username" size = "50" value="" /><br />
+				Password <input type="password" name="password" size = "50" value="" /><br />
+				First name <input type="text" name="first_name" size = "50" value="" /><br />
+				Last name <input type="text" name="last_name" size = "50" value="" /><br />
+				Email <input type="text" name="email" size = "50" value="" /><br />
+			<input type="submit" value="Save" />
+		</form>
+		
+	Already registered? Log in here:
+		<form action="/login_submit" method="post" name="login">
+			{% csrf_token %}
+			Enter:<br />
+				Username <input type="text" name="username" size = "50" value="" /><br />
+				Password <input type="password" name="password" size = "50" value="" /><br />
+			<input type="submit" value="Save" />
+		</form>
+
+	</body>		
+</html>
