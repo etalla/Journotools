@@ -5,7 +5,7 @@ from django.conf.urls.defaults import *
 import django.contrib.auth.views
 
 urlpatterns = patterns('stories.views',
-	(r'^$','index'),
+	(r'^(index)?$','index'),
 	#DUMMIES
 	(r'^dummies/test$','test'),
 	(r'^dummies/users$','users'),
