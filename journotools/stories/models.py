@@ -1,12 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User
 import datetime 
 		
 # class Tag (models.Model):
 	# tag = models.CharField ("Tag", max_length=50)
 	# def __unicode__(self):
 		# return u'%s %s' % (self.tag)
-
+				
 class Source (models.Model):
+	user = models.ForeignKey (User, related_name="sources")
 	first_name = models.CharField ("First name", max_length=100)
 	last_name = models.CharField ("Last name", max_length=300) 
 	job_title = models.CharField ("Job title", max_length=300) 
@@ -18,6 +20,7 @@ class Source (models.Model):
 				
 				
 class Article (models.Model):
+	user = models.ForeignKey (User, related_name="articles")
 	title = models.CharField ("Title", max_length=100)
 	lead = models.CharField ("Lead", max_length=300) # Needed? Maybe erase. 
 	content = models.TextField()
