@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title>Users</title>
+	</head>	
+	
+	<body>			
+	Existing users:
+		<br />
+		{% for User in user_list %}
+			{{User.username}}, password: {{User.password}}
+			<br />
+		{% endfor %}
+	</body>		
+</html>
