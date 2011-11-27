@@ -68,10 +68,10 @@ def login_submit(request):
 			return HttpResponseRedirect('/stories')
 		else:
 			message = "Your account has been disabled."
-		return HttpResponseRedirect('/stories/account_disabled')
+		return HttpResponseRedirect('/account_disabled')
 	else:
 		message = "Your username and password were incorrect." 
-		return HttpResponseRedirect('/stories/login_error')
+		return HttpResponseRedirect('/login_error')
 #login_submit=csrf_exempt(login_submit)
 
 def login_error(request):
