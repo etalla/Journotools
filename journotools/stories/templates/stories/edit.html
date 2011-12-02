@@ -151,40 +151,39 @@
 			dojo.require("dojox.editor.plugins.InsertEntity"); dojo.require("dojox.editor.plugins.CollapsibleToolbar"); 
 			dojo.require("dojox.editor.plugins.NormalizeIndentOutdent"); dojo.require("dojox.editor.plugins.PrettyPrint"); 		
 			dojo.require("dijit._editor.plugins.TextColor");dojo.require("dijit._editor.plugins.AlwaysShowToolbar");
-			dojo.require("dojox.editor.plugins.PasteFromWord"); 	
+			dojo.require("dojox.editor.plugins.PasteFromWord"); 
 	</script>
 
 	<!-- CSS CODE TO RESIZE TEXT AREA-->
 	<style type="text/css">
 		div.resize {
-			width: 700px;
-			height: 300px;
+			width: 900px;
+			height: 500px;
 			border: 1px solid;
 			resize: both;
 			overflow: auto;
 		}
 		div.horizontal {
 			resize: horizontal;
-			max-width: 700px;
-			min-width: 200px;
+			max-width: 1500px;
+			min-width: 800px;
 		}
 		div.vertical {
 			resize: vertical;
 			max-height: 2000px;
-			min-height: 200px;
+			min-height: 400px;
 		}
 	</style>
 	
 		<form action="/stories/{{Article.id}}/edit_submit" method="post">
 			{% csrf_token %}
-			<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Title</text><br /><input type="text" name="title" size = "50" value="{{Article.title}}" /><br />
+			<input type="text" name="title" size = "50" value="{{Article.title}}" /><br />
 			<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Subhead</text><br /><input type="text" name="lead" size = "120" value="{{Article.lead}}" /><br />
 			<textarea name="content" class="resize"
 			data-dojo-type="dijit.Editor" 
-			data-dojo-props="extraPlugins:['collapsibletoolbar','Fullscreen','|','Print','|','createLink','insertImage','|','findreplace','|',
-											'fontName','fontSize','formatBlock','|','normalizeindentoutdent',
-											'blockquote','pagebreak','preview','save','breadcrumb','insertentity','|',
-											'foreColor','hiliteColor','pastefromword','dijit._editor.plugins.AlwaysShowToolbar']">
+			data-dojo-props="extraPlugins:['collapsibletoolbar','Fullscreen','|','Print','|','createLink','unlink','insertImage','|','findreplace','|',
+											'normalizeindentoutdent','blockquote','pagebreak','preview','save','insertentity',
+											'dijit._editor.plugins.AlwaysShowToolbar','|','fontName','fontSize','formatBlock','breadcrumb']">
 			{{Article.content}}
 			</textarea>	
 			<select name="status">
