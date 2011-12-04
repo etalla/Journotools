@@ -6,8 +6,45 @@
 		<script type="text/javascript" src="http://opadoi.gr/journotools_static/JS/jquery.tokeninput.js"></script>
 		<script type="text/javascript" src="http://opadoi.gr/journotools_static/JS/json2.js"></script>
 		<link rel="stylesheet" href="http://opadoi.gr/journotools_static/CSS/token-input.css" type="text/css"/>
+					
+		<!-- This is for the dijit editor-->
+		<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojo/dojo.xd.js" data-dojo-config="isDebug: true,parseOnLoad: true"></script>
+		
+		<!--STYLESHEETS & SCRIPTS FOR DIJI EDITOR-->
+		<!-- Not sure if we need this one? -->
+		<meta charset="utf-8">
+		
+		<!-- CSS stylesheets -->
+		<link rel="stylesheet" href="http://dojotoolkit.org/documentation/tutorials/1.6/editor/demo/style.css" media="screen">
+		<link rel="stylesheet" href="http://dojotoolkit.org/documentation/tutorials/1.6/resources/style/demo.css" media="screen">
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css" />
+
+		<!-- These two are not essential, but makes it look wee bit nicer -->
+		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dojo/resources/dojo.css"> 
+		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dijit/themes/tundra/tundra.css"> 
+		
+		<!-- These are for the dojox plugins -->
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/editorPlugins.css"/>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/PageBreak.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Breadcrumb.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Preview.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Save.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/ShowBlockNodes.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Preview.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Save.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/FindReplace.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/PasteFromWord.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/InsertAnchor.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/CollapsibleToolbar.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Blockquote.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/SpellCheck.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/InsertEntity.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/StatusBar.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/PasteFromWord.css" />
+
 
 		<script type="text/javascript">
+		// FPre-populates and finds sources as you type in the source field of the form. 
 		$(document).ready(function () {
 		  $("#sources").tokenInput("/sources/source_query", {
 					hintText: "Type in the names of your sources",
@@ -19,6 +56,7 @@
 				});
 		});	
 
+		//Adds any sources added to the "Add new Source" form into the source field of the form.
 		function submit_new_source(){
 			var sources = {}; 
 			//squigglies announce object
@@ -54,81 +92,92 @@
 			}
 		}
 		
-	$(document).ajaxSend(function(event, xhr, settings) {
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-	
-    function sameOrigin(url) {
-        // url could be relative or scheme relative or absolute
-        var host = document.location.host; // host + port
-        var protocol = document.location.protocol;
-        var sr_origin = '//' + host;
-        var origin = protocol + sr_origin;
-        // Allow absolute or scheme relative URLs to same origin
-        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-            // or any other URL that isn't scheme relative or absolute i.e relative.
-            !(/^(\/\/|http:|https:).*/.test(url));
-    }
-	
-    function safeMethod(method) {
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+		//Believe this is to replace csrf exemption?
+		$(document).ajaxSend(function(event, xhr, settings) {
+		function getCookie(name) {
+			var cookieValue = null;
+			if (document.cookie && document.cookie != '') {
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = jQuery.trim(cookies[i]);
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) == (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
 		}
-	});
-		</script>
 		
-		<!--SCRIPTS FOR DIJI EDITOR.-->
-		<!-- Not sure if we need this one? -->
-		<meta charset="utf-8">
+		//Needed to allow relative paths?
+		function sameOrigin(url) {
+			// url could be relative or scheme relative or absolute
+			var host = document.location.host; // host + port
+			var protocol = document.location.protocol;
+			var sr_origin = '//' + host;
+			var origin = protocol + sr_origin;
+			// Allow absolute or scheme relative URLs to same origin
+			return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+				(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+				// or any other URL that isn't scheme relative or absolute i.e relative.
+				!(/^(\/\/|http:|https:).*/.test(url));
+		}
 		
-		<!-- CSS stylesheets -->
-		<link rel="stylesheet" href="http://dojotoolkit.org/documentation/tutorials/1.6/editor/demo/style.css" media="screen">
-		<link rel="stylesheet" href="http://dojotoolkit.org/documentation/tutorials/1.6/resources/style/demo.css" media="screen">
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css" />
+		function safeMethod(method) {
+			return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
 
-		<!-- These two are not essential, but makes it look wee bit nicer -->
-		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dojo/resources/dojo.css"> 
-		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dijit/themes/tundra/tundra.css"> 
+		if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+			xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+			}
+		});
 		
-		<!-- These are for the dojox plugins -->
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/editorPlugins.css"/>
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/PageBreak.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Breadcrumb.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Preview.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Save.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/ShowBlockNodes.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Preview.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Save.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/FindReplace.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/PasteFromWord.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/InsertAnchor.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/CollapsibleToolbar.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Blockquote.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/SpellCheck.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/InsertEntity.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/StatusBar.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/PasteFromWord.css" />
+		// For the dojo editor 
+		// plugins
+		dojo.require("dijit.Editor");
+		dojo.require("dijit._editor.plugins.FontChoice"); dojo.require("dojox.editor.plugins.TextColor"); 
+		dojo.require("dijit._editor.plugins.Print"); dojo.require("dijit._editor.plugins.ToggleDir"); 
+		dojo.require("dojox.editor.plugins.PageBreak"); dojo.require("dojox.editor.plugins.Preview");
+		dojo.require("dojox.editor.plugins.Save"); dojo.require("dojox.editor.plugins.Breadcrumb");
+		dojo.require("dojox.editor.plugins.SpellCheck");dojo.require("dojox.editor.plugins.InsertEntity");
+		dojo.require("dojox.editor.plugins.Blockquote"); dojo.require("dijit._editor.plugins.LinkDialog"); 
+		dojo.require("dojox.editor.plugins.InsertAnchor"); dojo.require("dojox.editor.plugins.FindReplace"); 
+		dojo.require("dojox.editor.plugins.ShowBlockNodes"); dojo.require("dojox.editor.plugins.PasteFromWord");
+		dojo.require("dijit._editor.plugins.ViewSource"); dojo.require("dijit._editor.plugins.FullScreen"); 
+		dojo.require("dojox.editor.plugins.InsertEntity"); dojo.require("dojox.editor.plugins.CollapsibleToolbar"); 
+		dojo.require("dojox.editor.plugins.NormalizeIndentOutdent"); dojo.require("dojox.editor.plugins.PrettyPrint"); 		
+		dojo.require("dijit._editor.plugins.TextColor");dojo.require("dijit._editor.plugins.AlwaysShowToolbar");
+		dojo.require("dojox.editor.plugins.PasteFromWord");
 		
-		<!-- This is for the dijit editor-->
-		<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojo/dojo.xd.js" data-dojo-config="isDebug: true,parseOnLoad: true"></script>
+		//gets value of any changes in rich editor
+			function hiddenUpdate() {
+				if(dijit.byId('richContent')){
+					$('#content').val(dijit.byId('richContent').getValue());
+				}
+			}
+			
+		// Loads any changes in editor onto the form's hidden field
+			dojo.addOnLoad(function(){
+				//alert("addOnLoad function");  
+				dijit.byId('richContent').setValue($('#content').val());
+			});
+		
+		
+		// Submit the form using JS
+		function submitform(next_variable) {
+			if (next_variable == 'detail'){
+				$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=detail');//this works
+			}
+			else {
+				$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=edit');
+			}
+			$('#edit_form').submit();
+			//document.forms["edit_form"].submit();
+		}		
 
+	</script>
+	
 	</head>
 
 	<body class="claro">
@@ -137,22 +186,6 @@
 		<a href="/sources">View sources.</a>
 		<a href="/stories">Return to the dashboard.</a></p>
 			
-	<script>
-			dojo.require("dijit.Editor");
-			dojo.require("dijit._editor.plugins.FontChoice"); dojo.require("dojox.editor.plugins.TextColor"); 
-			dojo.require("dijit._editor.plugins.Print"); dojo.require("dijit._editor.plugins.ToggleDir"); 
-			dojo.require("dojox.editor.plugins.PageBreak"); dojo.require("dojox.editor.plugins.Preview");
-			dojo.require("dojox.editor.plugins.Save"); dojo.require("dojox.editor.plugins.Breadcrumb");
-			dojo.require("dojox.editor.plugins.SpellCheck");dojo.require("dojox.editor.plugins.InsertEntity");
-			dojo.require("dojox.editor.plugins.Blockquote"); dojo.require("dijit._editor.plugins.LinkDialog"); 
-			dojo.require("dojox.editor.plugins.InsertAnchor"); dojo.require("dojox.editor.plugins.FindReplace"); 
-			dojo.require("dojox.editor.plugins.ShowBlockNodes"); dojo.require("dojox.editor.plugins.PasteFromWord");
-			dojo.require("dijit._editor.plugins.ViewSource"); dojo.require("dijit._editor.plugins.FullScreen"); 
-			dojo.require("dojox.editor.plugins.InsertEntity"); dojo.require("dojox.editor.plugins.CollapsibleToolbar"); 
-			dojo.require("dojox.editor.plugins.NormalizeIndentOutdent"); dojo.require("dojox.editor.plugins.PrettyPrint"); 		
-			dojo.require("dijit._editor.plugins.TextColor");dojo.require("dijit._editor.plugins.AlwaysShowToolbar");
-			dojo.require("dojox.editor.plugins.PasteFromWord"); 
-	</script>
 
 	<!-- CSS CODE TO RESIZE TEXT AREA-->
 	<style type="text/css">
@@ -175,44 +208,45 @@
 		}
 	</style>
 	
-		<form action="/stories/{{Article.id}}/edit_submit" method="post">
+		<form id="edit_form" method="post"> <!--action="/stories/{{Article.id}}/edit_submit/?next=detail" -->
 			{% csrf_token %}
-			<input type="text" name="title" size = "50" value="{{Article.title}}" /><br />
-			<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Subhead</text><br /><input type="text" name="lead" size = "120" value="{{Article.lead}}" /><br />
-			<textarea name="content" class="resize"
-			data-dojo-type="dijit.Editor" 
-			data-dojo-props="extraPlugins:['collapsibletoolbar','Fullscreen','|','Print','|','createLink','unlink','insertImage','|','findreplace','|',
-											'normalizeindentoutdent','blockquote','pagebreak','preview','save','insertentity',
-											'dijit._editor.plugins.AlwaysShowToolbar','|','fontName','fontSize','formatBlock','breadcrumb']">
-			{{Article.content}}
-			</textarea>	
-			<select name="status">
+			<input type="text" name="title" id="title" value="{{Article.title}}" size = "100"style="font-family:Times New Roman;color:#000000;font-size:20;font-style:bold" /><br />
+			
+			<br /><br /><input type="text" name="lead" id="lead" value="{{Article.lead}}" size = "120" style="font-family:Times New Roman;color:#000000;font-size:14;font-style:italic"/><br /><br />
+			
+			<input type="hidden" name="content" id="content" value="{{Article.content}}"/>
+			<div name="richContent" id="richContent" class="resize"
+				data-dojo-type="dijit.Editor" 
+				data-dojo-props="extraPlugins:['collapsibletoolbar','Fullscreen','|','Print','|','createLink','unlink','insertImage','|','findreplace','|',
+												'normalizeindentoutdent','blockquote','pagebreak','preview','save','insertentity',
+												'dijit._editor.plugins.AlwaysShowToolbar','|','fontName','fontSize','formatBlock','breadcrumb'],
+								onChange:function(){hiddenUpdate()}"></div>	
+			
+			<select name="status" id="status">
 			  <option value="to_start"    {% if Article.status == "to_start"    %} selected {%endif%}>To start</option>
 			  <option value="in_progress" {% if Article.status == "in_progress" %} selected {%endif%}>In progress</option>
 			  <option value="almost_done" {% if Article.status == "almost_done" %} selected {%endif%}>Almost done</option>
 			  <option value="completed"   {% if Article.status == "completed"   %} selected {%endif%}>Completed</option>
 			</select> </br>	
 			
-			<select name="category">
+			<select name="category" id="category">
 			  <option value="news"    {% if Article.category == "news"    %} selected {%endif%}>News</option>
 			  <option value="feature" {% if Article.category == "feature" %} selected {%endif%}>Feature</option>
 			  <option value="opinion" {% if Article.category == "opinion" %} selected {%endif%}>Opinion</option>
 			  <option value="analysis"   {% if Article.category == "analysis"  %} selected {%endif%}>Analysis</option>
 			</select> </br>	
 			
-			<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Notes</text><br /><textarea name="notes" rows="2" cols="40">{{Article.notes}}</textarea><br />
+			<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Notes</text><br /><textarea name="notes" id="notes" rows="2" cols="40">{{Article.notes}}</textarea><br />
 			<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Sources</text><br /> <input type="text" name="sources" id="sources"/></br>  
 			
-			<table>
-				{% for Source in Article.sources.all %}
-				<tr><td>{{Source}}</td></tr>
-				{% endfor %}
-			</table>
+			</br>
 			
-			</br>	
+			<!--<input type="submit" value="Save and preview"/> -->
+			<input type="button" value="Save and preview" onClick="javascript:submitform('detail')"/>&nbsp;&nbsp;
+			<input type="button" value="Save and keep editing" onClick="javascript:submitform('edit')"/>
 			
-			<input type="submit" value="Save"/>
-		
+			</br></br>	
+			
 		</form>
 
 		<a href='' onClick="$('#new_source_box').slideToggle();return false;" id="add_new_source"> Add a new source<i>(Click to close this window)</i></a> <!--THE DOLLAR SIGN ANNOUNCES JQUERY. CAN ALSO BE REPLACED BY "JQUERY"-->
