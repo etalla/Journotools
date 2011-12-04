@@ -221,6 +221,7 @@ def edit(request, article_id):
 
 @login_required(login_url='/login_page')
 def edit_submit(request, article_id):
+	next = request.GET.get('next', '') 
 	a = get_object_or_404(Article, pk=article_id)
 	a.title = request.POST['title']
 	a.lead = request.POST['lead']
@@ -240,9 +241,8 @@ def edit_submit(request, article_id):
 		s = get_object_or_404(Source, pk = i)
 		a.sources.add(s)
 	a.save()
-	return HttpResponseRedirect(reverse('stories.views.detail', kwargs={'article_id':article_id}))#return HttpResponseRedirect(reverse('stories.views.detail', kwargs={'article_id':article_id})) # the reverse tells the program to go to views.detail, tell it what url it is, then go back
+	return HttpResponseRedirect(reverse('stories.views.%s' %next, kwargs={'article_id':article_id}))#return HttpResponseRedirect(reverse('stories.views.detail', kwargs={'article_id':article_id})) # the reverse tells the program to go to views.detail, tell it what url it is, then go back
 						#to this program with the URL. If you skipped the reverse, it would go straight to the URL, which would make it go wonky if your URL changes. 
-
 						
 #**************************************************************     SOURCES  ****************************************************************************
 #**************************************************************     SOURCES  ****************************************************************************
