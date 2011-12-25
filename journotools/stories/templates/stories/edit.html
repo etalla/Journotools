@@ -167,7 +167,10 @@
 		// Submit the form using JS
 		function submitform(next_variable) {
 			if (next_variable == 'detail'){
-				$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=detail');//this works
+				$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=detail');
+			}
+			if (next_variable == 'stories'){
+				$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=stories');
 			}
 			else {
 				$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=edit');
@@ -243,8 +246,9 @@
 			
 			<!--<input type="submit" value="Save and preview"/> -->
 			<input type="button" value="Save and preview" onClick="javascript:submitform('detail')"/>&nbsp;&nbsp;
-			<input type="button" value="Save and keep editing" onClick="javascript:submitform('edit')"/>
-			
+			<input type="button" value="Save and keep editing" onClick="javascript:submitform('edit')"/>&nbsp;&nbsp;
+			<input type="button" value="Save and return to dashboard" onClick="javascript:submitform('stories')"/>
+
 			</br></br>	
 			
 		</form>

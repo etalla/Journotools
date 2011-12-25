@@ -169,6 +169,7 @@ def add(request):
 
 @login_required(login_url='/login_page')
 def add_submit(request):
+	next = request.GET.get('next', '') 
 	a = Article()
 	a.user = request.user
 	a.title = request.POST['title']
@@ -190,7 +191,13 @@ def add_submit(request):
 		s = get_object_or_404(Source, pk = i)
 		a.sources.add(s)
 	a.save()
-	return HttpResponseRedirect(reverse('stories.views.stories', args=()))
+	article_id=a.id
+	#return HttpResponseRedirect(reverse('stories.views.stories', args=()))
+	if next == "stories":
+		return HttpResponseRedirect(reverse('stories.views.stories'))
+	else:
+		return HttpResponseRedirect(reverse('stories.views.%s' %next, kwargs={'article_id':article_id}))#return HttpResponseRedirect(reverse('stories.views.detail', kwargs={'article_id':article_id})) # the reverse tells the program to go to views.detail, tell it what url it is, then go back
+		
 	
 @login_required(login_url='/login_page')
 def add_source_api(request):
@@ -241,7 +248,10 @@ def edit_submit(request, article_id):
 		s = get_object_or_404(Source, pk = i)
 		a.sources.add(s)
 	a.save()
-	return HttpResponseRedirect(reverse('stories.views.%s' %next, kwargs={'article_id':article_id}))#return HttpResponseRedirect(reverse('stories.views.detail', kwargs={'article_id':article_id})) # the reverse tells the program to go to views.detail, tell it what url it is, then go back
+	if next == "stories":
+		return HttpResponseRedirect(reverse('stories.views.stories'))
+	else:
+		return HttpResponseRedirect(reverse('stories.views.%s' %next, kwargs={'article_id':article_id}))#return HttpResponseRedirect(reverse('stories.views.detail', kwargs={'article_id':article_id})) # the reverse tells the program to go to views.detail, tell it what url it is, then go back
 						#to this program with the URL. If you skipped the reverse, it would go straight to the URL, which would make it go wonky if your URL changes. 
 						
 #**************************************************************     SOURCES  ****************************************************************************

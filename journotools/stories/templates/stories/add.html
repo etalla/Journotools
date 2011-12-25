@@ -123,42 +123,55 @@
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
 		}
 	});
-	</script>
-	
-	<script>
-		function submit_new_source(){
-			var sources = {}; 
-			//squigglies announce object
-			sources.first_name=$('#new_source_form > #first_name').val(); // the ">" sign tells it to indicate the text in the form box. Called selectors. Part of CSS.
-			sources.last_name=$('#new_source_form > #last_name').val();
-			sources.job_title=$('#new_source_form > #job_title').val();
-			sources.company=$('#new_source_form > #company').val();
-			sources.comments=$('#new_source_form > #comments').val();
-			//inps = $('#new_source_form > input, #new_source_form > textarea');
-			//inps.each(function(key, value){	
-				//sources.push([$(value).attr('name'),$(value).val()]);
-				//});	
-			//alert(JSON.stringify(sources));
-			if (sources.first_name=="" && sources.last_name==""){
-				alert("Please enter a first or last name... DUH.")
-			} 
-			else {
-				$.ajax({
-					type:'POST',
-					url:'/stories/add_source_api',
-					data:JSON.stringify(sources),
-					success: function(data){
-							data = JSON.parse(data);
-							//console.log(data, data.id, data.first_name + " " + data.last_name);
-							$.TokenList.add_token_api(data.id, data.first_name + " " + data.last_name);
-							//$('#new_source_box').slideToggle();
-							$('#new_source_form').children().each(function(index, value){
-								$(value).val("");
-							});
-						},
-				});
-			}
+
+	function submit_new_source(){
+		var sources = {}; 
+		//squigglies announce object
+		sources.first_name=$('#new_source_form > #first_name').val(); // the ">" sign tells it to indicate the text in the form box. Called selectors. Part of CSS.
+		sources.last_name=$('#new_source_form > #last_name').val();
+		sources.job_title=$('#new_source_form > #job_title').val();
+		sources.company=$('#new_source_form > #company').val();
+		sources.comments=$('#new_source_form > #comments').val();
+		//inps = $('#new_source_form > input, #new_source_form > textarea');
+		//inps.each(function(key, value){	
+			//sources.push([$(value).attr('name'),$(value).val()]);
+			//});	
+		//alert(JSON.stringify(sources));
+		if (sources.first_name=="" && sources.last_name==""){
+			alert("Please enter a first or last name... DUH.")
+		} 
+		else {
+			$.ajax({
+				type:'POST',
+				url:'/stories/add_source_api',
+				data:JSON.stringify(sources),
+				success: function(data){
+						data = JSON.parse(data);
+						//console.log(data, data.id, data.first_name + " " + data.last_name);
+						$.TokenList.add_token_api(data.id, data.first_name + " " + data.last_name);
+						//$('#new_source_box').slideToggle();
+						$('#new_source_form').children().each(function(index, value){
+							$(value).val("");
+						});
+					},
+			});
 		}
+	}
+		
+	// Submit the form using JS
+	function submitform(next_variable) {
+		if (next_variable == 'detail'){
+			$('#add_form').attr('action', '/stories/add_submit/?next=detail');
+		}
+		if (next_variable == 'stories'){
+			$('#add_form').attr('action', '/stories/add_submit/?next=stories');
+		}
+		if (next_variable == 'edit'){
+			$('#add_form').attr('action', '/stories/add_submit/?next=edit');
+		}
+		$('#add_form').submit();
+		//document.forms["edit_form"].submit();
+	}		
 	</script>
 
 	
@@ -173,7 +186,7 @@
 		}
 </style>
 	
-	<form action="/stories/add_submit" method="post">
+	<form id="add_form" method="post"> 
 		{% csrf_token %}
 		<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Title</text></br><input type="text" name="title" size = "50" value="" /><br />
 		<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Subhead</text></br><input type="text" name="lead" size = "120" value="" /><br />
@@ -202,7 +215,12 @@
 		<!--Quotes: <textarea name="quotes" rows="2" cols="20"></textarea><br />-->
 		<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Notes</text></br><textarea name="notes" rows="5" cols="50"></textarea><br />
 		</br>
-		<input type="submit" value="Save this article"/>
+		<!--<input type="submit" value="Save this article"/>-->
+		
+		<input type="button" value="Save and preview" onClick="javascript:submitform('detail')"/>&nbsp;&nbsp;
+		<input type="button" value="Save and keep editing" onClick="javascript:submitform('edit')"/>&nbsp;&nbsp;
+		<input type="button" value="Save and return to dashboard" onClick="javascript:submitform('stories')"/>
+		
 	</form>
 
 	</br>

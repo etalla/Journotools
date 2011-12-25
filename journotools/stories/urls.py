@@ -19,7 +19,7 @@ urlpatterns = patterns('stories.views',
 	#STORIES URL
 	(r'^stories/$','stories'),
 	(r'^stories/add$','add'),
-	(r'^stories/add_submit$','add_submit'),
+	(r'^stories/add_submit','add_submit'),
 	(r'^stories/add_source_api$','add_source_api'),
     (r'^stories/(?P<article_id>\d+)/$', 'detail'),
 	(r'^stories/(?P<article_id>\d+)/edit$', 'edit'),
