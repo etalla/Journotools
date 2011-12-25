@@ -6,7 +6,14 @@
 </head>
 
 <body>
-	<p align="right"><a href="/logout_view">Log out.</a></p>
+	
+	<p align="right">
+		<a href="/stories/{{Article.id}}/edit">Edit</a>&nbsp
+		<a href="/stories">Return to the dashboard</a>&nbsp
+		<a href="/stories/{{Article.id}}/delete">Delete</a>&nbsp
+		Go to <a href="/sources">list of sources</a><br/> 
+		<a href="/logout_view">Log out</a>
+	</p>
 
 	<h1>    {{ Article }}          </h1>
 	<p>     {{ Article.pub_date }} </p>
@@ -28,12 +35,6 @@
 			<a href="/sources/{{i.id}}">{{i}}</a><br/> 
 		{% endfor %}
 		<br/><br/> 
-	<a href="/stories/{{Article.id}}/edit">Edit</a>
-		<br/><br/> 
-	<a href="/stories">Return to the dashboard.</a>
-		<br/><br/> 
-	<a href="/stories/{{Article.id}}/delete">Delete</a>
-		<br/><br/> 
-	Go to <a href="/sources">list of sources.</a><br/> 
+
 </body>
 </html>
