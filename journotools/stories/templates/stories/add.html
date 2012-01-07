@@ -10,40 +10,40 @@
 	<script type="text/javascript" src="http://opadoi.gr/journotools_static/JS/json2.js"></script>
 	<link rel="stylesheet" href="http://opadoi.gr/journotools_static/CSS/token-input.css" type="text/css"/>
 	
-	<!--SCRIPTS FOR DIJI EDITOR.-->
-		<!-- Not sure if we need this one? -->
-		<meta charset="utf-8">
-		
-		<!-- CSS stylesheets -->
-		<link rel="stylesheet" href="http://dojotoolkit.org/documentation/tutorials/1.6/editor/demo/style.css" media="screen">
-		<link rel="stylesheet" href="http://dojotoolkit.org/documentation/tutorials/1.6/resources/style/demo.css" media="screen">
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css" />
+	<!--SCRIPTS FOR DIJIT EDITOR-->
+	<!-- Not sure if we need this one? -->
+	<meta charset="utf-8">
+	
+	<!-- CSS stylesheets -->
+	<link rel="stylesheet" href="http://dojotoolkit.org/documentation/tutorials/1.6/editor/demo/style.css" media="screen">
+	<link rel="stylesheet" href="http://dojotoolkit.org/documentation/tutorials/1.6/resources/style/demo.css" media="screen">
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css" />
 
-		<!-- These two are not essential, but makes it look wee bit nicer -->
-		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dojo/resources/dojo.css"> 
-		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dijit/themes/tundra/tundra.css"> 
-		
-		<!-- These are for the dojox plugins -->
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/editorPlugins.css"/>
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/PageBreak.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Breadcrumb.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Preview.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Save.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/ShowBlockNodes.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Preview.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Save.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/FindReplace.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/PasteFromWord.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/InsertAnchor.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/CollapsibleToolbar.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Blockquote.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/SpellCheck.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/InsertEntity.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/StatusBar.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/PasteFromWord.css" />
-		
-		<!-- This is for the dijit editor-->
-		<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojo/dojo.xd.js" data-dojo-config="isDebug: true,parseOnLoad: true"></script>
+	<!-- These two are not essential, but makes it look wee bit nicer -->
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dojo/resources/dojo.css"> 
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.4/dijit/themes/tundra/tundra.css"> 
+	
+	<!-- These are for the dojox plugins -->
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/editorPlugins.css"/>
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/PageBreak.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Breadcrumb.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Preview.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Save.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/ShowBlockNodes.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Preview.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Save.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/FindReplace.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/PasteFromWord.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/InsertAnchor.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/CollapsibleToolbar.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojox/editor/plugins/resources/css/Blockquote.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/SpellCheck.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/InsertEntity.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/StatusBar.css" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojox/editor/plugins/resources/css/PasteFromWord.css" />
+	
+	<!-- This is for the dijit editor-->
+	<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojo/dojo.xd.js" data-dojo-config="isDebug: true,parseOnLoad: true"></script>
 
 </head>
 
@@ -175,7 +175,7 @@
 	</script>
 
 	
-<!-- CSS CODE TO RESIZE TEXT AREA-->
+<!-- CSS, RESIZE DIJIT TEXT AREA-->
 	<style type="text/css">
 		div.resize {
 			width: 900px;
@@ -183,9 +183,14 @@
 			border: 1px solid;
 			resize: both;
 			overflow: auto;
+		}		
+	
+		body{
+			margin-left: 50;
+			margin-bottom: 200;
+			padding: 0;
 		}
-		
-</style>
+	</style>
 	
 	<form id="add_form" method="post"> 
 		{% csrf_token %}
@@ -206,9 +211,9 @@
 		</select></br>	
 		
 		<select name="category">
-			<option value="news"    {% if Article.category == "news"    %} selected {%endif%}>News</option>
-			<option value="feature" {% if Article.category == "feature" %} selected {%endif%}>Feature</option>
-			<option value="opinion" {% if Article.category == "opinion" %} selected {%endif%}>Opinion</option>
+			<option value="news"       {% if Article.category == "news"    %} selected {%endif%}>News</option>
+			<option value="feature"    {% if Article.category == "feature" %} selected {%endif%}>Feature</option>
+			<option value="opinion"	   {% if Article.category == "opinion" %} selected {%endif%}>Opinion</option>
 			<option value="analysis"   {% if Article.category == "analysis"  %} selected {%endif%}>Analysis</option>
 		</select></br>	
 		
@@ -226,7 +231,7 @@
 
 	</br>
 	
-	<a href='' onClick="$('#new_source_box').slideToggle();return false;" id="add_new_source"><text style="font-family:verdana;color:#909090;font-size:17;font-style:italic">Add a new source <i>(Click to close this window)</i></a></text><!--THE DOLLAR SIGN ANNOUNCES JQUERY. CAN ALSO BE REPLACED BY "JQUERY"-->
+	<a href='' onClick="$('#new_source_box').slideToggle();window.scrollBy(0,100);return false;" id="add_new_source"><text style="font-family:verdana;color:#909090;font-size:17;font-style:italic">Add a new source <i>(Click to close this window)</i></a></text><!--THE DOLLAR SIGN ANNOUNCES JQUERY. CAN ALSO BE REPLACED BY "JQUERY"-->
 		<div id="new_source_box" style="border:1px solid; width:400px;display:none;">
 			<form id="new_source_form" method="post">
 				{% csrf_token %}
@@ -242,6 +247,7 @@
 			</form>
 		</div> <!--THE BIT INSIDE "STYLE" IS CSS  .each(function alert(this.val());	});	-->
 	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-</body>
+	
+	</body>
 </html>
 

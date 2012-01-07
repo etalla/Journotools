@@ -199,15 +199,11 @@
 			resize: both;
 			overflow: auto;
 		}
-		div.horizontal {
-			resize: horizontal;
-			max-width: 1500px;
-			min-width: 800px;
-		}
-		div.vertical {
-			resize: vertical;
-			max-height: 2000px;
-			min-height: 400px;
+		
+		body{
+			margin-left: 50;
+			margin-bottom: 200;
+			padding: 0;
 		}
 	</style>
 	
@@ -253,7 +249,7 @@
 			
 		</form>
 
-		<a href='' onClick="$('#new_source_box').slideToggle();return false;" id="add_new_source"> Add a new source<i>(Click to close this window)</i></a> <!--THE DOLLAR SIGN ANNOUNCES JQUERY. CAN ALSO BE REPLACED BY "JQUERY"-->
+		<a href='' onClick="$('#new_source_box').slideToggle();window.scrollBy(0,100);return false;" id="add_new_source"> Add a new source<i>(Click to close this window)</i></a> <!--THE DOLLAR SIGN ANNOUNCES JQUERY. CAN ALSO BE REPLACED BY "JQUERY"-->
 			<div id="new_source_box" style="border:1px solid; width:400px;display:none;">
 				<form id="new_source_form" method="post">
 					{% csrf_token %}
