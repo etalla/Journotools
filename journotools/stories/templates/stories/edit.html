@@ -172,7 +172,7 @@
 			if (next_variable == 'stories'){
 				$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=stories');
 			}
-			else {
+			if (next_variable == 'edit'){
 				$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=edit');
 			}
 			$('#edit_form').submit();
