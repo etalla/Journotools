@@ -123,6 +123,9 @@
 						<a href='/stories/?order_by=number_of_sources&sort_by=asc'>Related sources</a>			
 				{% endif %}
 			</td>
+			<td>
+				Action
+			</td>
 		</tr>	
 		{% for Article in article_list %}
 			<tr>
@@ -136,9 +139,15 @@
 					</select> 
 					</br> 
 				</td>
-				<td>{{ Article.pub_date|date:"d/n/Y H:i"}}</td>
-				<td><a href="/stories/{{ Article.id }}/">  View  </a>;<a href="/stories/{{ Article.id }}/edit">  Edit  </a>;<a href="/stories/{{ Article.id }}/delete">  Delete </a></td>
-				<td>{{ Article.notes}}</td>
+				<td>
+					{{ Article.pub_date|date:"d/n/Y H:i"}}
+				</td>
+				<td>
+					<a href="/stories/{{ Article.id }}/">  View  </a>;<a href="/stories/{{ Article.id }}/edit">  Edit  </a>;<a href="/stories/{{ Article.id }}/delete">  Delete </a>
+				</td>
+				<td>
+					{{ Article.notes}}
+				</td>
 				<td>
 					<select name="category" onChange="JQ_category_edit(this, {{Article.id}})">
 						<option value="news"    {% if Article.category == "news"    %} selected {%endif%}>News</option>
@@ -148,7 +157,12 @@
 					</select> 
 					</br> 
 				</td>
-				<td align="center">{{Article.number_of_sources}}</td>
+				<td align="center">
+					{{Article.number_of_sources}}
+				</td>
+				<td>
+					<input type="checkbox" name="" value="" />
+				</td>
 			</tr>
 		{% endfor %}
 	</table>
