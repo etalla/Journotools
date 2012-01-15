@@ -18,18 +18,18 @@
 			}		
 
 		table{ 
-			width: 700px;
+			width: 800px;
 			table-layout:fixed;
 			}
 		
 		td.small{
-			width:70px;
+			width:80px;
 			white-space: nowrap;
 			overflow:hidden;
 		}
 		
 		td.medium{
-			width:110px;
+			width:140px;
 			white-space: nowrap;
 			overflow:hidden;
 		}
@@ -86,7 +86,7 @@
 					<a href='/sources/?order_by=number_of_articles&sort_by=asc' >Articles</a>			
 				{% endif%}
 			</td>
-			<td class="medium">
+			<td class="small" align="center">
 				{% if order_by == 'pub_date' and sort_by == 'asc' %}
 					<a href='/sources/?order_by=pub_date&sort_by=desc' >Date created</a>
 				{% else%}
@@ -104,8 +104,8 @@
 				<td class="large">{{Source.company}}</td>
 				<td class="large"><a href="/sources/{{ Source.id }}/">  View  </a>;<a href="/sources/{{ Source.id }}/edit">  Edit  </a>;<a href="/sources/{{ Source.id }}/delete">  Delete </a></td>
 				<td class="large">{{Source.comments}}</td>
-				<td align="center" class="small">{{Source.number_of_articles}}</td>
-				<td class="medium">{{Source.pub_date}}</td>
+				<td class="small" align="center">{{Source.number_of_articles}}</td>
+				<td class="small" align="center">{{Source.pub_date|date:"d/n/Y"}}</td>
 			</tr>
 		{% endfor %}
 	</table>
