@@ -157,6 +157,20 @@
 			});
 		}
 	}
+	
+	//gets value of any changes in rich editor
+			function hiddenUpdate() {
+				if(dijit.byId('richContent')){
+					$('#content').val(dijit.byId('richContent').getValue());
+				}
+			}
+			
+	// Loads any changes in editor onto the form's hidden field
+			dojo.addOnLoad(function(){
+				//alert("addOnLoad function");  
+				dijit.byId('richContent').setValue($('#content').val());
+			});
+		
 		
 	// Submit the form using JS
 	function submitform(next_variable) {
@@ -196,13 +210,14 @@
 		{% csrf_token %}
 		<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Title</text></br><input type="text" name="title" size = "50" value="" /><br />
 		<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Subhead</text></br><input type="text" name="lead" size = "120" value="" /><br />
-		</br><textarea name="content" class="resize"
+		<input type="hidden" name="content" id="content" value=""/>
+		</br><div name="richContent" id="richContent" class="resize"
 			data-dojo-type="dijit.Editor" 
-			data-dojo-props="extraPlugins:['collapsibletoolbar','Fullscreen','|','Print','|','createLink','insertImage','|','findreplace','|',
-											'fontName','fontSize','formatBlock','|','normalizeindentoutdent',
-											'blockquote','pagebreak','preview','save','breadcrumb','insertentity','|',
-											'foreColor','hiliteColor','pastefromword','dijit._editor.plugins.AlwaysShowToolbar']">
-			</textarea>			
+			data-dojo-props="extraPlugins:['collapsibletoolbar','Fullscreen','|','Print','|','createLink','unlink','insertImage','|','findreplace','|',
+												'normalizeindentoutdent','blockquote','pagebreak','preview','save','insertentity',
+												'dijit._editor.plugins.AlwaysShowToolbar','|','fontName','fontSize','formatBlock','breadcrumb'],
+				onChange:function(){hiddenUpdate()}">
+			</div>			
 		<select name="status">
 		 	<option value="to_start"    {% if Article.status == "to_start"    %} selected {%endif%}>To start</option>
 			<option value="in_progress" {% if Article.status == "in_progress" %} selected {%endif%}>In progress</option>
