@@ -178,6 +178,7 @@ def add_submit(request):
 	a.pub_date = datetime.datetime.today()
 	a.notes = request.POST['notes']
 	a.category = request.POST['category']
+	a.status = request.POST['status']
 	#a.tags = request.POST['tags']
 	a.save()
 	b = request.POST['sources'].rsplit(',') #this takes the string and returns a list of the results in the string separated by the separator given -- here, the comma
