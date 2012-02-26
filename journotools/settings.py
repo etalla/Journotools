@@ -94,7 +94,7 @@ STATIC_ROOT = 'journotools/static/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    ("site_media", "site_media"),
+    ("journotools/site_media", "site_media"),
 )
 
 try:
