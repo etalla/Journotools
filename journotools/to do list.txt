@@ -1,0 +1,10 @@
+Next steps
+
+This week:
+1. Make it pretty
+2. Users: figure it out!
+
+Longer term:
+4. Decide on whether to keep a subhead
+5. Add "publications" as a tag?
+6. Add deadline as a tag?
