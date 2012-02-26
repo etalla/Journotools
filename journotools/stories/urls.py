@@ -6,9 +6,6 @@ import django.contrib.auth.views
 
 urlpatterns = patterns('stories.views',
 	(r'^$','index'),
-	#DUMMIES
-	(r'^dummies/test$','test'),
-	(r'^dummies/users$','users'),
 	#LOGIN PAGES. WILL HAVE TO CHANGE THE URLS TO REMOVE 'STORIES' IN FRONT.
 	(r'^login_page$','login_page'),
 	(r'^register$','register'),
