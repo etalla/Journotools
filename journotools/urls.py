@@ -1,5 +1,5 @@
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
+from django.conf import settings
 from django.conf.urls.defaults import *
 
 from django.contrib import admin
@@ -15,5 +15,5 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += patterns('',
-	(r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+	(r'^static/(.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 )
