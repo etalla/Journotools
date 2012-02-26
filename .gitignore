@@ -5,3 +5,4 @@ lib
 .Python
 *.pyc
 journotools/static
+journotools/local_settings.py

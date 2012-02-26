@@ -89,10 +89,15 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:'django.contrib.admindocs',
 )
 
-STATIC_ROOT = 'static/'
+STATIC_ROOT = 'journotools/static/'
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     ("site_media", "site_media"),
 )
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
