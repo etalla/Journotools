@@ -13,4 +13,7 @@ urlpatterns = patterns('',
 	#	{'document_root': 'C:\Users\eva\Dropbox\Programming\Jounotools\journotools\site_media'}),
 	(r'^', include('stories.urls')),
 )
-urlpatterns += staticfiles_urlpatterns()
+
+urlpatterns += patterns('',
+	(r'^static/(?P.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+)
