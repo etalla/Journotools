@@ -89,7 +89,10 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:'django.contrib.admindocs',
 )
 
+STATIC_ROOT = 'static/'
+
+STATIC_URL = '/static/'
+
 STATICFILES_DIRS = (
     ("site_media", "site_media"),
 )
-STATIC_URL = '/static/'
