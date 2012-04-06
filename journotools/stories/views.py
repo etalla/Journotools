@@ -29,25 +29,25 @@ category_dict = {'': 'News', 'news':'News', 'feature':'Feature', 'opinion':'Opin
 @login_required(login_url='/login_page')
 def test(request):
 	username = request.user.username
-	return render_to_response('stories/dummies/test.html',{'User':username})
+	return render_to_response('dummies/test.html',{'User':username})
 	
 def users(request):
 	user_list = User.objects.all()
-	return render_to_response('stories/dummies/users.html',{'user_list':user_list})
+	return render_to_response('dummies/users.html',{'user_list':user_list})
 	
 #**************************************************************     WELCOME PAGE   ****************************************************************************
 #**************************************************************     WELCOME PAGE   ****************************************************************************
 #**************************************************************     WELCOME PAGE   ****************************************************************************
 
 def index(request):
-	return render_to_response('stories/index.html')
+	return render_to_response('index.html')
 	
 #**************************************************************     USERS    ****************************************************************************
 #**************************************************************     USERS    ****************************************************************************
 #**************************************************************     USERS    ****************************************************************************
 		
 def login_page(request):
-	return render_to_response('stories/login_page.html',context_instance=RequestContext(request))
+	return render_to_response('login_page.html',context_instance=RequestContext(request))
 
 def register(request):
 	u = User.objects.create_user(request.POST['username'], request.POST['email'], request.POST['password'])
@@ -56,7 +56,7 @@ def register(request):
 	u.save()
 	user = authenticate(username=u.username, password=request.POST['password'])
 	login(request, user)
-	return render_to_response('stories/registered.html',{'User':u})
+	return render_to_response('registered.html',{'User':u})
 #register=csrf_exempt(register)
 
 def login_submit(request):
@@ -75,14 +75,14 @@ def login_submit(request):
 #login_submit=csrf_exempt(login_submit)
 
 def login_error(request):
-	return render_to_response('stories/login_error.html')
+	return render_to_response('login_error.html')
 
 def account_disabled(request):
-	return render_to_response('stories/account_disabled.html')
+	return render_to_response('account_disabled.html')
 	
 def logout_view(request):
 	logout(request)
-	return render_to_response('stories/logout_view.html')
+	return render_to_response('logout_view.html')
 	
 #**************************************************************     ARTICLES    ****************************************************************************
 #**************************************************************     ARTICLES    ****************************************************************************
@@ -100,7 +100,7 @@ def stories(request):
 			article_list = article_list.order_by(order_by).reverse()
 		else:
 			article_list = article_list.order_by(order_by)
-	return render_to_response('stories/stories.html', {'article_list':article_list,'order_by':order_by,'sort_by':sort_by,'status_dict':status_dict,'category_dict':category_dict})
+	return render_to_response('stories.html', {'article_list':article_list,'order_by':order_by,'sort_by':sort_by,'status_dict':status_dict,'category_dict':category_dict})
 '''
 @login_required(login_url='/login_page')
 def stories(request):
@@ -116,7 +116,7 @@ def stories(request):
 				article_list = article_list.order_by(order_by).reverse()
 			else:
 				article_list = article_list.order_by(order_by)
-		return render_to_response('stories/stories.html', {'article_list':article_list,'order_by':order_by,'sort_by':sort_by,'status_dict':status_dict,'category_dict':category_dict})
+		return render_to_response('stories.html', {'article_list':article_list,'order_by':order_by,'sort_by':sort_by,'status_dict':status_dict,'category_dict':category_dict})
 		
 		
 @login_required(login_url='/login_page')
@@ -145,12 +145,12 @@ def category_edit(request, article_id):
 def detail(request, article_id):
 	a = get_object_or_404(Article, pk=article_id)
 	list = a.sources.all()
-	return render_to_response('stories/detail.html', {'Article': a, 'list':list, 'status_dict':status_dict,'category_dict':category_dict})
+	return render_to_response('detail.html', {'Article': a, 'list':list, 'status_dict':status_dict,'category_dict':category_dict})
 
 @login_required(login_url='/login_page')
 def delete(request, article_id):
 	a = get_object_or_404(Article, pk=article_id)
-	return render_to_response('stories/delete.html', {'Article': a},
+	return render_to_response('delete.html', {'Article': a},
 		context_instance=RequestContext(request))
 
 @login_required(login_url='/login_page')
@@ -158,13 +158,13 @@ def delete_submit(request, article_id):
 	a = get_object_or_404(Article, pk=article_id)
 	if request.POST['choice'] == "Yes":
 		a.delete()
-		return render_to_response('stories/delete_submit.html')
+		return render_to_response('delete_submit.html')
 	else:
 		return HttpResponseRedirect(reverse('stories.views.stories', args=()))	
 
 @login_required(login_url='/login_page')
 def add(request):
-	return render_to_response('stories/add.html',
+	return render_to_response('add.html',
 		context_instance=RequestContext(request))
 
 @login_required(login_url='/login_page')
@@ -224,7 +224,7 @@ def add_source_api(request):
 @login_required(login_url='/login_page')
 def edit(request, article_id):
 	a = get_object_or_404(Article, pk=article_id)
-	return render_to_response('stories/edit.html', {'Article': a},
+	return render_to_response('edit.html', {'Article': a},
 		context_instance=RequestContext(request))
 
 @login_required(login_url='/login_page')
@@ -272,7 +272,7 @@ def sources_index(request):
 			source_list = source_list.order_by(order_by).reverse()
 		else:
 			source_list = source_list.order_by(order_by)
-	return render_to_response('stories/sources_index.html',{'source_list': source_list,'order_by':order_by,'sort_by':sort_by})
+	return render_to_response('sources_index.html',{'source_list': source_list,'order_by':order_by,'sort_by':sort_by})
 
 @login_required(login_url='/login_page')
 def sources_detail(request, source_id):
@@ -282,13 +282,13 @@ def sources_detail(request, source_id):
 	#short_quote_list = s.quotes.all()
 	#for quote in short_quote_list:
 	#	quote.content = quote.content[0:100]
-	return render_to_response('stories/sources_detail.html', {'Source':s,'article_list':article_list}) # ,short_quote_list':short_quote_list
+	return render_to_response('sources_detail.html', {'Source':s,'article_list':article_list}) # ,short_quote_list':short_quote_list
 		
 @login_required(login_url='/login_page')
 def sources_delete(request, source_id):
 	s = get_object_or_404(Source, pk=source_id)
 	number_of_articles = s.articles.count()
-	return render_to_response('stories/sources_delete.html', {'Source': s, 'number_of_articles':number_of_articles},
+	return render_to_response('sources_delete.html', {'Source': s, 'number_of_articles':number_of_articles},
 		context_instance=RequestContext(request))
 
 @login_required(login_url='/login_page')
@@ -301,7 +301,7 @@ def sources_delete_submit(request, source_id):
 @login_required(login_url='/login_page')
 def sources_edit(request, source_id):
 	s = get_object_or_404(Source, pk=source_id)
-	return render_to_response('stories/sources_edit.html', {'Source': s},
+	return render_to_response('sources_edit.html', {'Source': s},
 		context_instance=RequestContext(request))
 
 @login_required(login_url='/login_page')
@@ -317,7 +317,7 @@ def sources_edit_submit(request, source_id):
 	
 @login_required(login_url='/login_page')
 def sources_add(request):
-	return render_to_response('stories/sources_add.html',
+	return render_to_response('sources_add.html',
 		context_instance=RequestContext(request))
 
 def sources_add_submit(request):
@@ -337,7 +337,7 @@ def source_query(request):
 	source_list = request.user.sources.filter( # this is a python query to the database
 		Q(first_name__istartswith=query) | Q(last_name__istartswith=query)
 	)
-	return render_to_response('stories/source_query.json',{'source_list':source_list},
+	return render_to_response('source_query.json',{'source_list':source_list},
 		context_instance=RequestContext(request))
 
 #**************************************************************     TRANSCRIPTS  *****************************************************************************
@@ -349,11 +349,11 @@ def source_query(request):
 	short_quote_list = Quote.objects.all()
 	for quote in short_quote_list:
 		quote.content = quote.content[0:20]
-	return render_to_response('stories/quotes.html', {'quote_list':quote_list,'short_quote_list':short_quote_list})
+	return render_to_response('quotes.html', {'quote_list':quote_list,'short_quote_list':short_quote_list})
 
 def quote_detail(request, quote_id):
 	q = get_object_or_404(Quote, pk=quote_id)
-	return render_to_response('stories/quote_detail.html', {'Quote':q})
+	return render_to_response('quote_detail.html', {'Quote':q})
 
 def quote_edit (request, quote_id):
 	q = get_object_or_404(Quote, pk=quote_id)
@@ -364,7 +364,7 @@ def quote_edit (request, quote_id):
 quote_edit = csrf_exempt(quote_edit)
 	
 def new_quote(request):
-	return render_to_response('stories/new_quote.html',
+	return render_to_response('new_quote.html',
 		context_instance=RequestContext(request))
 	
 def submit_new_quote(request):

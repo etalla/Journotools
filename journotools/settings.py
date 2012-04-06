@@ -69,7 +69,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'journotools.urls'
 
 TEMPLATE_DIRS = (
-	"C:\Documents and Settings\eva\Desktop\My Dropbox\Programming\Django\journotools\stories\templates\stories"
+	"C:\Documents and Settings\eva\Desktop\My Dropbox\Programming\Django\journotools\stories\templates"
 	#"C:\Documents and Settings\eva\Desktop\My Dropbox\Programming\Django\journotools\sources\templates\sources"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
