@@ -1,201 +1,162 @@
 <html>
+	<head>
+		<title>New article</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}JS/jquery.tokeninput.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}JS/json2.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>
+		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/token-input.css" type="text/css"/>
+		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/general-style.css" type="text/css"/>
+	</head>
 
-<head>
-	<title>New article</title>
-	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}JS/jquery.tokeninput.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}JS/json2.js"></script>
-	<link rel="stylesheet" href="{{ STATIC_URL }}CSS/token-input.css" type="text/css"/>
-	
-	<script type="text/javascript" src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>
-
-	<style type= "text/css">
-		body{
-			margin-left: 60;
-			margin-right:80;
-			margin-bottom: 200;
-			padding: 40;
-			font-size:16;
-			line-height:140%;
-			background-color:#FBF5EF;
-			}		
-	</style>	
-</head>
-
-<body class="claro">
-	
-	<script type="text/javascript">
-		$(document).ready(function () {
-		  $("#sources").tokenInput("/sources/source_query", {
-					hintText: "Type in the names of your sources",
-					noResultsText: "No results",
-					searchingText: "Searching...",
-					prePopulate: [{% for Source in Article.sources.all %}
-									{"id":"{{Source.id}}","name":"{{Source}}"}{%if not forloop.last%},{%endif%}
-								{% endfor %}]
-				});
-		});	
-		
-	$(document).ajaxSend(function(event, xhr, settings) {
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-	
-    function sameOrigin(url) {
-        // url could be relative or scheme relative or absolute
-        var host = document.location.host; // host + port
-        var protocol = document.location.protocol;
-        var sr_origin = '//' + host;
-        var origin = protocol + sr_origin;
-        // Allow absolute or scheme relative URLs to same origin
-        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-            // or any other URL that isn't scheme relative or absolute i.e relative.
-            !(/^(\/\/|http:|https:).*/.test(url));
-    }
-	
-    function safeMethod(method) {
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-		}
-	});
-
-	function submit_new_source(){
-		var sources = {}; 
-		//squigglies announce object
-		sources.first_name=$('#new_source_form > #first_name').val(); // the ">" sign tells it to indicate the text in the form box. Called selectors. Part of CSS.
-		sources.last_name=$('#new_source_form > #last_name').val();
-		sources.job_title=$('#new_source_form > #job_title').val();
-		sources.company=$('#new_source_form > #company').val();
-		sources.comments=$('#new_source_form > #comments').val();
-		//inps = $('#new_source_form > input, #new_source_form > textarea');
-		//inps.each(function(key, value){	
-			//sources.push([$(value).attr('name'),$(value).val()]);
-			//});	
-		//alert(JSON.stringify(sources));
-		if (sources.first_name=="" && sources.last_name==""){
-			alert("Please enter a first or last name... DUH.")
-		} 
-		else {
-			$.ajax({
-				type:'POST',
-				url:'/stories/add_source_api',
-				data:JSON.stringify(sources),
-				success: function(data){
-						data = JSON.parse(data);
-						//console.log(data, data.id, data.first_name + " " + data.last_name);
-						$.TokenList.add_token_api(data.id, data.first_name + " " + data.last_name);
-						//$('#new_source_box').slideToggle();
-						$('#new_source_form').children().each(function(index, value){
-							$(value).val("");
-						});
-					},
+	<body class="claro">
+		<script type="text/javascript">
+			$(document).ready(function () {
+			  $("#sources").tokenInput("/sources/source_query", {
+						hintText: "Type in the names of your sources",
+						noResultsText: "No results",
+						searchingText: "Searching...",
+						prePopulate:[	{% for Source in Article.sources.all %}
+											{"id":"{{Source.id}}","name":"{{Source}}"}{% if not forloop.last %},{% endif %}
+										{% endfor %}]
+					});
 			});
-		}
-	}
-	
-	// Submit the form using JS
-	function submitform(next_variable) {
-		if (next_variable == 'detail'){
-			$('#add_form').attr('action', '/stories/add_submit/?next=detail');
-		}
-		if (next_variable == 'stories'){
-			$('#add_form').attr('action', '/stories/add_submit/?next=stories');
-		}
-		if (next_variable == 'edit'){
-			$('#add_form').attr('action', '/stories/add_submit/?next=edit');
-		}
-		$('#add_form').submit();
-		//document.forms["edit_form"].submit();
-	}		
-	</script>
+			
+			$(document).ajaxSend(function(event, xhr, settings) {
+				function getCookie(name) {
+					var cookieValue = null;
+					if (document.cookie && document.cookie != '') {
+						var cookies = document.cookie.split(';');
+						for (var i = 0; i < cookies.length; i++) {
+							var cookie = jQuery.trim(cookies[i]);
+							// Does this cookie string begin with the name we want?
+							if (cookie.substring(0, name.length + 1) == (name + '=')) {
+								cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+								break;
+							}
+						}
+					}
+					return cookieValue;
+				}
+		
+				function sameOrigin(url) {
+					// url could be relative or scheme relative or absolute
+					var host = document.location.host; // host + port
+					var protocol = document.location.protocol;
+					var sr_origin = '//' + host;
+					var origin = protocol + sr_origin;
+					// Allow absolute or scheme relative URLs to same origin
+					return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+						(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+						// or any other URL that isn't scheme relative or absolute i.e relative.
+						!(/^(\/\/|http:|https:).*/.test(url));
+				}
+				
+				function safeMethod(method) {
+					return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+				}
 
-	
-	<p align="right"><a href="/logout_view">Log out.</a>
-	<a href="/sources">View sources.</a>
-	<a href="/stories">Return to the dashboard.</a></p>
-	
-	<h1 style ="font-family:MS Sans Serif;color:9999FF">New article</h1>
-	
-	<!--ADD FORM-->
-	<form id="add_form" method="post"> 
-		{% csrf_token %}
-		<!--Title-->
-		<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Title</text></br><input type="text" name="title" size = "50" value="" />
-			<br />
-		<!--Lead-->
-		<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Subhead</text></br><input type="text" name="lead" size = "120" value="" />
-			<br />
-		<!--Content-->
-		<textarea id="content" name="content" value=""></textarea>
+				if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+					xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+				}
+			});
+
+			function submit_new_source(){
+				var sources = {}; 
+				// the ">" sign tells it to indicate the text in the form box. Called selectors. Part of CSS.
+				sources.first_name=$('#new_source_form > #first_name').val();
+				sources.last_name=$('#new_source_form > #last_name').val();
+				sources.job_title=$('#new_source_form > #job_title').val();
+				sources.company=$('#new_source_form > #company').val();
+				sources.comments=$('#new_source_form > #comments').val();
+				if (sources.first_name=="" && sources.last_name==""){
+					alert("Please enter a first or last name... DUH.")
+				} 
+				else {
+					$.ajax({
+						type:'POST',
+						url:'/stories/add_source_api',
+						data:JSON.stringify(sources),
+						success: function(data){
+								data = JSON.parse(data);
+								$.TokenList.add_token_api(data.id, data.first_name + " " + data.last_name);
+								$('#new_source_form').children().each(function(index, value){
+									$(value).val("");
+								});
+							},
+					});
+				}
+			}
+		
+			// Submit the form using JS
+			function submitform(next_variable) {
+				if (next_variable == 'detail'){
+					$('#add_form').attr('action', '/stories/add_submit/?next=detail');
+				}
+				if (next_variable == 'stories'){
+					$('#add_form').attr('action', '/stories/add_submit/?next=stories');
+				}
+				if (next_variable == 'edit'){
+					$('#add_form').attr('action', '/stories/add_submit/?next=edit');
+				}
+				$('#add_form').submit();
+			}		
+		</script>
+
+		<p align="right"><a href="/logout_view">Log out.</a>
+		<a href="/sources">View sources.</a>
+		<a href="/stories">Return to the dashboard.</a></p>
+		
+		<h1 class ="page-title">New article</h1>
+
+		<form id="add_form" method="post">
+			{% csrf_token %}
+			<text class="form-label">Title</text></br><input type="text" name="title" size = "50" value="" /><br />
+			<text class="form-label">Subhead</text></br><input type="text" name="lead" size = "120" value="" /><br />
+			<textarea id="content" name="content" value=""></textarea>
 			<script type="text/javascript">
 				CKEDITOR.replace('content',
 				{
 					customConfig : '{{ STATIC_URL }}ckeditor/custom/config.js'
-					
 				});
-			</script>	
-		<select name="status">
-		 	<option value="to_start"    {% if Article.status == "to_start"    %} selected {%endif%}>To start</option>
-			<option value="in_progress" {% if Article.status == "in_progress" %} selected {%endif%}>In progress</option>
-			<option value="almost_done" {% if Article.status == "almost_done" %} selected {%endif%}>Almost done</option>
-		 	<option value="completed"   {% if Article.status == "completed"   %} selected {%endif%}>Completed</option>
-		</select></br>	
-		
-		<select name="category">
-			<option value="news"       {% if Article.category == "news"    %} selected {%endif%}>News</option>
-			<option value="feature"    {% if Article.category == "feature" %} selected {%endif%}>Feature</option>
-			<option value="opinion"	   {% if Article.category == "opinion" %} selected {%endif%}>Opinion</option>
-			<option value="analysis"   {% if Article.category == "analysis"  %} selected {%endif%}>Analysis</option>
-		</select></br>	
-		
-		<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Sources</text></br><input type="text" name="sources" id="sources"/></br>  
-		<!--Quotes: <textarea name="quotes" rows="2" cols="20"></textarea><br />-->
-		<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Notes</text></br><textarea name="notes" rows="5" cols="50"></textarea><br />
-		</br>
-		<!--<input type="submit" value="Save this article"/>-->
-		
-		<input type="button" value="Save and preview" onClick="javascript:submitform('detail')"/>&nbsp;&nbsp;
-		<input type="button" value="Save and keep editing" onClick="javascript:submitform('edit')"/>&nbsp;&nbsp;
-		<input type="button" value="Save and return to dashboard" onClick="javascript:submitform('stories')"/>
-		
-	</form>
+			</script>
+			
+			<select name="status">
+				<option value="to_start"    {% if Article.status == "to_start"    %} selected {%endif%}>To start</option>
+				<option value="in_progress" {% if Article.status == "in_progress" %} selected {%endif%}>In progress</option>
+				<option value="almost_done" {% if Article.status == "almost_done" %} selected {%endif%}>Almost done</option>
+				<option value="completed"   {% if Article.status == "completed"   %} selected {%endif%}>Completed</option>
+			</select></br>
+			
+			<select name="category">
+				<option value="news"       {% if Article.category == "news"    %} selected {%endif%}>News</option>
+				<option value="feature"    {% if Article.category == "feature" %} selected {%endif%}>Feature</option>
+				<option value="opinion"	   {% if Article.category == "opinion" %} selected {%endif%}>Opinion</option>
+				<option value="analysis"   {% if Article.category == "analysis"  %} selected {%endif%}>Analysis</option>
+			</select></br>
 
-	</br>
-	
-	<a href='' onClick="$('#new_source_box').slideToggle();window.scrollBy(0,100);return false;" id="add_new_source"><text style="font-family:verdana;color:#909090;font-size:17;font-style:italic">Add a new source <i>(Click to close this window)</i></a></text><!--THE DOLLAR SIGN ANNOUNCES JQUERY. CAN ALSO BE REPLACED BY "JQUERY"-->
-		<div id="new_source_box" style="border:1px solid; width:400px;display:none;">
+			<text class="form-label">Sources</text></br><input type="text" name="sources" id="sources"/></br> 
+
+			<text class="form-label">Notes</text></br><textarea name="notes" rows="5" cols="50"></textarea><br /></br>
+
+			<input type="button" value="Save and preview" onClick="javascript:submitform('detail')"/>&nbsp;&nbsp;
+			<input type="button" value="Save and keep editing" onClick="javascript:submitform('edit')"/>&nbsp;&nbsp;
+			<input type="button" value="Save and return to dashboard" onClick="javascript:submitform('stories')"/>
+		</form>
+
+		</br>
+		
+		<a href='' onClick="$('#new_source_box').slideToggle();window.scrollBy(0,200);return false;" id="add_new_source">Add a new source <i>(Click to close this window)</i></a><!--THE DOLLAR SIGN ANNOUNCES JQUERY. CAN ALSO BE REPLACED BY "JQUERY"-->
+		<div id="new_source_box" class="source-box">
 			<form id="new_source_form" method="post">
 				{% csrf_token %}
-				<!--<input type="hidden" name ="article_id" value="{{Article.id}}">-->
 				First name:<input type="text" id="first_name" value="" /><br />
 				Last name:<input type="text" id="last_name" value="" /><br />
 				Job title:<input type="text" id="job_title" value="" /><br />
 				Company:<input type="text" id="company" value="" /><br />
 				Comments:<textarea id="comments" rows="2" cols="20"></textarea><br />
 				<button onClick="submit_new_source(); return false;"> Save </button>
-				<!--<button onClick="submit_new_source(); return false;"> Save and add another </button>-->
-				<!--<button onClick="submit_new_source(); return false;"> Clear </button>-->
 			</form>
-		</div> <!--THE BIT INSIDE "STYLE" IS CSS  .each(function alert(this.val());	});	-->
-	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-	
+		</div>
 	</body>
 </html>
-
