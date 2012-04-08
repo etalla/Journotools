@@ -1,57 +1,35 @@
 <html>
-
-<head>
 	{% load stories_extras %}
+	<head>
+		<title>{{ Source }}</title>
+		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/general-style.css" type="text/css"/>
+	</head>
 
-	<title>{{ Source }}</title>
+	<body>
+		<p align="right" class="attributes">
+			<a href="/logout_view">Log out.</a><br />
+			Return to <a href="/stories">article list.</a><br />
+			Return to <a href="/sources">sources.</a>
+		</p>
 
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}JS/jquery.tokeninput.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}JS/json2.js"></script>
-	<link rel="stylesheet" href="{{ STATIC_URL }}CSS/token-input.css" type="text/css"/>
+		<p class="page-title">{{ Source }}</p>
 
-</head>
-
-<body>
-	<p align="right"><a href="/logout_view">Log out.</a></p>
-
-	<h1>{{ Source }}</h1>
-
-	<b>Job title:</b> {{Source.job_title}} <br />
-	<b>Company:</b>  {{Source.company}} <br />
-	<b>Comments:</b> {{Source.comments}} <br />
-
-	<br />
-	<a href="/sources/{{Source.id}}/edit"> Edit this source</a>
-	<br /> 
-	
-	<!--<a href='' onClick="$('#new_transcript_box').slideToggle();return false;" id="submit_new_transcript"> Add a transcript for this source <i>(Click to close this window)</i></a> 
-		<div id="new_transcript_box" style="border:1px solid; width:400px;display:none;">
-		<form action="/stories/submit_new_transcript" method="post">
-			{% csrf_token %}
-			<input type="hidden" name="source_id" value="{{Source.id}}"><br />
-			Transcript: <textarea name="transcript" value="" rows="5" cols="50"></textarea><br />
-			<input type="submit" value="Save"/>
-		</form>
-		</div>-->
+		<p class="form-label">
+			Job title:<text class="form-content">	{{ Source.job_title }}</text><br />
+			Company:<text class="form-content">		{{ Source.company }}</text><br />
+			Comments:<text class="form-content">	{{ Source.comments }}</text><br />
+		</p>
 		
-	<br /> 
-	<a href="/sources/{{Source.id}}/delete"> Delete this source </a>
-	<br /> <br />
+		<p class="attributes">
+			<a href="/sources/{{Source.id}}/edit"> Edit this source</a><br />
+			<a href="/sources/{{Source.id}}/delete"> Delete this source </a>
+		</p>
 
-	<!--Transcripts from this source:
-		{% for Quotes in short_quote_list %}<br />
-			<a href="/quotes/{{Quotes.id}}">{{Quotes}}..........</a><br />
-		{% endfor %} <br />-->
-
-	<b>Articles linked to this source:</b><br />
-		{% for Article in article_list %}<br />
-			<a href="/stories/{{Article.id}}">{{Article.title}}</a><br />
-		{% endfor %}<br />
-
-	Return to <a href="/stories">article list.</a>
-	<br />
-	Return to <a href="/sources">sources.</a>
-</body>
+		<p>
+			Articles linked to this source:
+			{% for Article in article_list %}<br />
+				<a href="/stories/{{Article.id}}">{{Article.title}}</a><br />
+			{% endfor %}
+		</p>
+	</body>
 </html>
-

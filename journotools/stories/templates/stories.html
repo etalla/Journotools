@@ -1,237 +1,177 @@
 <html>
 {% load stories_extras %}
+	<head>
+		<title>Articles</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/general-style.css" type="text/css"/>
+	</head>
 
-<head>
-	<title>Articles</title>
-</head>
-
-<body>
-
-	<style type= "text/css">
-		body{
-			margin-left: 60;
-			margin-right:120;
-			margin-bottom: 200;
-			padding: 40;
-			font-size:16;
-			line-height:140%;
-			background-color:#FBF5EF;
-			}		
-	</style>	
-	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-
-	<script type="text/javascript">
-	function JQ_status_edit(status, article_id){
-		status=$(status).val();	
-		$.ajax({
-				type:'POST',
-				url:'/stories/'+article_id+'/status_edit',
-				data:status,
-				error:function (xhr, error_message, exception){
-					alert();
-				}
+	<body>
+		<script type="text/javascript">
+		function JQ_status_edit(status, article_id){
+			status=$(status).val();	
+			$.ajax({
+					type:'POST',
+					url:'/stories/'+article_id+'/status_edit',
+					data:status,
+					error:function (xhr, error_message, exception){
+						alert();
+					}
 			});
 		}
 
-	function JQ_category_edit(category, article_id){
-		category=$(category).val();	
-		$.ajax({
-				type:'POST',
-				url:'/stories/'+article_id+'/category_edit',
-				data:category,
-				error:function (xhr, error_message, exception){
-					alert();
-				}
+		function JQ_category_edit(category, article_id){
+			category=$(category).val();	
+			$.ajax({
+					type:'POST',
+					url:'/stories/'+article_id+'/category_edit',
+					data:category,
+					error:function (xhr, error_message, exception){
+						alert();
+					}
 			});
 		}
 
-	
-	$(document).ajaxSend(function(event, xhr, settings) {
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-	
-    function sameOrigin(url) {
-        // url could be relative or scheme relative or absolute
-        var host = document.location.host; // host + port
-        var protocol = document.location.protocol;
-        var sr_origin = '//' + host;
-        var origin = protocol + sr_origin;
-        // Allow absolute or scheme relative URLs to same origin
-        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-            // or any other URL that isn't scheme relative or absolute i.e relative.
-            !(/^(\/\/|http:|https:).*/.test(url));
-    }
-	
-    function safeMethod(method) {
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    }
-});
-	</script>
-
-	<p align="right">
-		<a href="/logout_view">Log out.</a><br />
-		Go to <a href="/sources">list of sources.</a>
-	</p>
-	
-	<h1>Articles</h1>
-	
-	<a href="/stories/add"><b>Add new article</b></a> <br/><br/> 
-	
-	<style type="text/css">
-		table{ 
-			width: 800px;
-			table-layout:fixed;
+		$(document).ajaxSend(function(event, xhr, settings) {
+			function getCookie(name) {
+				var cookieValue = null;
+				if (document.cookie && document.cookie != '') {
+					var cookies = document.cookie.split(';');
+					for (var i = 0; i < cookies.length; i++) {
+						var cookie = jQuery.trim(cookies[i]);
+						// Does this cookie string begin with the name we want?
+						if (cookie.substring(0, name.length + 1) == (name + '=')) {
+							cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+							break;
+						}
+					}
+				}
+				return cookieValue;
 			}
-		
-		td.xsmall{
-			width:80px;
-			white-space: nowrap;
-			overflow:hidden;
-		}
-		
-		td.small{
-			width:130px;
-			white-space: nowrap;
-			overflow:hidden;
-		}
-		
-		td.medium{
-			width:170px;
-			white-space: nowrap;
-			overflow:hidden;
-		}
-		
-		td.large{
-			width:280px;
-			white-space: nowrap;
-			overflow:hidden;
-		}
-		
-	</style>
+			
+			function sameOrigin(url) {
+				// url could be relative or scheme relative or absolute
+				var host = document.location.host; // host + port
+				var protocol = document.location.protocol;
+				var sr_origin = '//' + host;
+				var origin = protocol + sr_origin;
+				// Allow absolute or scheme relative URLs to same origin
+				return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+					(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+					// or any other URL that isn't scheme relative or absolute i.e relative.
+					!(/^(\/\/|http:|https:).*/.test(url));
+			}
+			
+			function safeMethod(method) {
+				return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+			}
 
-	<table>
-	<!--FIRST ROW-->
-		<tr>
-			<td class="large">
-				{% if order_by == 'title' and sort_by == 'asc' %}
-						<a href='/stories/?order_by=title&sort_by=desc' > Title</a>
-					{% else %}
-						<a href='/stories/?order_by=title&sort_by=asc' > Title</a>			
-				{% endif %}
-			</td>
-			
-			<td class="small">
-				{% if order_by == 'status' and sort_by == 'asc' %}
-						<a href='/stories/?order_by=status&sort_by=desc' > Status</a>
-					{% else %}
-						<a href='/stories/?order_by=status&sort_by=asc' > Status</a>			
-				{% endif %}
-			</td>
-			
-			<td class="small">
-				{% if order_by == '-pub_date' and sort_by == 'desc' %}
-						<a href='/stories/?order_by=-pub_date&sort_by=asc' > Last modified</a>
-					{% else %}
-						<a href='/stories/?order_by=-pub_date&sort_by=desc' > Last modified</a>			
-				{% endif %}
-			</td>
-			
-			<td class="small">
-				Action
-			</td>
-			
-			<td class="medium">
-				Notes
-			</td>
-			
-			<td class="xsmall">			
-				{% if order_by == 'category' and sort_by == 'asc' %}
-						<a href='/stories/?order_by=category&sort_by=desc' > Category</a>
-					{% else %}
-						<a href='/stories/?order_by=category&sort_by=asc' > Category</a>			
-				{% endif %}
-			</td>
-			
-			<td class="xsmall" align="center">
-				{% if order_by == 'number_of_sources' and sort_by == 'asc' %}
-						<a href='/stories/?order_by=number_of_sources&sort_by=desc'>Sources</a>
-					{% else %}
-						<a href='/stories/?order_by=number_of_sources&sort_by=asc'>Sources</a>			
-				{% endif %}
-			</td>
-			
-			<td class="xsmall" align="center">
-				Select
-			</td>	
-		</tr>	
-		
-		<!--CONTENT-->
-		{% for Article in article_list %}
+			if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+				xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+			}
+		});
+		</script>
+
+		<p align="right" class="attributes">
+			<a href="/logout_view">Log out.</a><br />
+			Go to <a href="/sources">list of sources.</a>
+		</p>
+
+		<h1>Articles</h1>
+
+		<a href="/stories/add"><b>Add new article</b></a><br/><br/> 
+
+		<table class="table-dashboard">
 			<tr>
-				<td class="large"><a href="/stories/{{Article.id}}/edit">
-					{{Article.title}}</a>
+				<td class="xl">
+					{% if order_by == 'title' and sort_by == 'asc' %}
+							<a href='/stories/?order_by=title&sort_by=desc'>Title</a>
+						{% else %}
+							<a href='/stories/?order_by=title&sort_by=asc'>Title</a>
+					{% endif %}
 				</td>
-				
+
 				<td class="small">
-					<select name="status" onChange="JQ_status_edit(this, {{Article.id}})">
-						<option value="to_start"    {% if Article.status == "to_start"    %} selected {%endif%}>To start</option>
-						<option value="in_progress" {% if Article.status == "in_progress" %} selected {%endif%}>In progress</option>
-						<option value="almost_done" {% if Article.status == "almost_done" %} selected {%endif%}>Almost done</option>
-						<option value="completed"   {% if Article.status == "completed"   %} selected {%endif%}>Completed</option>
-					</select> 
-					</br> 
+					{% if order_by == 'status' and sort_by == 'asc' %}
+							<a href='/stories/?order_by=status&sort_by=desc'>Status</a>
+						{% else %}
+							<a href='/stories/?order_by=status&sort_by=asc'> Status</a>
+					{% endif %}
 				</td>
-				
+
 				<td class="small">
-					{{ Article.pub_date|date:"d/n/Y H:i"}}
+					{% if order_by == '-pub_date' and sort_by == 'desc' %}
+							<a href='/stories/?order_by=-pub_date&sort_by=asc'>Last modified</a>
+						{% else %}
+							<a href='/stories/?order_by=-pub_date&sort_by=desc'>Last modified</a>
+					{% endif %}
 				</td>
-				
+
 				<td class="small">
-					<a href="/stories/{{ Article.id }}/">  View  </a>;<a href="/stories/{{ Article.id }}/edit">  Edit  </a>;<a href="/stories/{{ Article.id }}/delete">  Delete </a>
+					Action
 				</td>
-				
+
 				<td class="medium">
-					{{ Article.notes}}
+					Notes
 				</td>
-				
+
 				<td class="xsmall">
-					<select name="category" onChange="JQ_category_edit(this, {{Article.id}})">
-						<option value="news"    {% if Article.category == "news"    %} selected {%endif%}>News</option>
-						<option value="feature" {% if Article.category == "feature" %} selected {%endif%}>Feature</option>
-						<option value="opinion" {% if Article.category == "opinion" %} selected {%endif%}>Opinion</option>
-						<option value="analysis"   {% if Article.category == "analysis"   %} selected {%endif%}>Analysis</option>
-					</select> 
-					</br> 
+					{% if order_by == 'category' and sort_by == 'asc' %}
+							<a href='/stories/?order_by=category&sort_by=desc'>Category</a>
+						{% else %}
+							<a href='/stories/?order_by=category&sort_by=asc'>Category</a>
+					{% endif %}
 				</td>
-				
+
 				<td class="xsmall" align="center">
-					{{Article.number_of_sources}}
+					{% if order_by == 'number_of_sources' and sort_by == 'asc' %}
+							<a href='/stories/?order_by=number_of_sources&sort_by=desc'>Sources</a>
+						{% else %}
+							<a href='/stories/?order_by=number_of_sources&sort_by=asc'>Sources</a>
+					{% endif %}
 				</td>
-				
+
 				<td class="xsmall" align="center">
-					<input type="checkbox" name="" value="" />
+					Select
 				</td>
-			</tr>
-		{% endfor %}
-	</table>
-</body>
+			</tr>	
+
+			{% for Article in article_list %}
+				<tr>
+					<td class="xl"><a href="/stories/{{Article.id}}/edit">{{Article.title}}</a></td>
+
+					<td class="small">
+						<select name="status" onChange="JQ_status_edit(this, {{Article.id}})">
+							<option value="to_start"    {% if Article.status == "to_start"    %} selected {%endif%}>To start</option>
+							<option value="in_progress" {% if Article.status == "in_progress" %} selected {%endif%}>In progress</option>
+							<option value="almost_done" {% if Article.status == "almost_done" %} selected {%endif%}>Almost done</option>
+							<option value="completed"   {% if Article.status == "completed"   %} selected {%endif%}>Completed</option>
+						</select> 
+					</td>
+
+					<td class="small">{{ Article.pub_date|date:"d/n/Y H:i"}}</td>
+					
+					<td class="small">
+						<a href="/stories/{{ Article.id }}/"		>View</a>
+						<a href="/stories/{{ Article.id }}/edit"	>Edit</a>
+						<a href="/stories/{{ Article.id }}/delete"	>Delete</a>
+					</td>
+
+					<td class="medium">{{ Article.notes }}</td>
+
+					<td class="xsmall">
+						<select name="category" onChange="JQ_category_edit(this, {{Article.id}})">
+							<option value="news"    {% if Article.category == "news"     %} selected {%endif%}>News</option>
+							<option value="feature" {% if Article.category == "feature"  %} selected {%endif%}>Feature</option>
+							<option value="opinion" {% if Article.category == "opinion"  %} selected {%endif%}>Opinion</option>
+							<option value="analysis"{% if Article.category == "analysis" %} selected {%endif%}>Analysis</option>
+						</select> 
+					</td>
+
+					<td class="xsmall" align="center">{{ Article.number_of_sources }}</td>
+					<td class="xsmall" align="center"><input type="checkbox" name="" value="" /></td>
+				</tr>
+			{% endfor %}
+		</table>
+	</body>
 </html>

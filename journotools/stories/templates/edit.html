@@ -1,202 +1,166 @@
 <html>
 	<head>
-		<title>Edit {{Article}}</title>
-		
+		<title>Edit {{Article}}</title>	
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}JS/jquery.tokeninput.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}JS/json2.js"></script>
-		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/token-input.css" type="text/css"/>
-				
 		<script type="text/javascript" src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>
-
-		<style type="text/css">
-			body{
-				margin-left: 50;
-				margin-bottom: 200;
-				padding: 10;
-			}
-		</style>
-		
-		<script type="text/javascript">
-			// Pre-populates and finds sources as you type in the source field of the form. 
-				$(document).ready(function () {
-				  $("#sources").tokenInput("/sources/source_query", {
-							hintText: "Type in the names of your sources",
-							noResultsText: "No results",
-							searchingText: "Searching...",
-							prePopulate: [{% for Source in Article.sources.all %}
-											{"id":"{{Source.id}}","name":"{{Source}}"}{%if not forloop.last%},{%endif%}
-										{% endfor %}]
-						});
-				});	
-
-			//Adds any sources added to the "Add new Source" form into the source field of the form.
-				function submit_new_source(){
-					var sources = {}; 
-					//squigglies announce object
-					sources.first_name=$('#new_source_form > #first_name').val(); // the ">" sign tells it to indicate the text in the form box. Called selectors. Part of CSS.
-					sources.last_name=$('#new_source_form > #last_name').val();
-					sources.job_title=$('#new_source_form > #job_title').val();
-					sources.company=$('#new_source_form > #company').val();
-					sources.comments=$('#new_source_form > #comments').val();
-					//sources.quotes=$('#new_source_form > #quotes').val();
-					//inps = $('#new_source_form > input, #new_source_form > textarea');
-					//inps.each(function(key, value){	
-						//sources.push([$(value).attr('name'),$(value).val()]);
-						//});	
-					//alert(JSON.stringify(sources));
-					if (sources.first_name=="" && sources.last_name==""){
-						alert("Please enter a first or last name...")
-					} 
-					else {
-						$.ajax({
-							type:'POST',
-							url:'/stories/add_source_api',
-							data:JSON.stringify(sources),
-							success: function(data){
-									data = JSON.parse(data);
-									console.log(data, data.id, data.first_name + " " + data.last_name);
-									$.TokenList.add_token_api(data.id, data.first_name + " " + data.last_name);
-									//$('#new_source_box').slideToggle();
-									$('#new_source_form').children().each(function(index, value){
-										$(value).val("");
-									});
-								},
-						});
-					}
-				}
-			
-			//Believe this is to replace csrf exemption?
-				$(document).ajaxSend(function(event, xhr, settings) {
-					function getCookie(name) {
-						var cookieValue = null;
-						if (document.cookie && document.cookie != '') {
-							var cookies = document.cookie.split(';');
-							for (var i = 0; i < cookies.length; i++) {
-								var cookie = jQuery.trim(cookies[i]);
-								// Does this cookie string begin with the name we want?
-								if (cookie.substring(0, name.length + 1) == (name + '=')) {
-									cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-									break;
-								}
-							}
-						}
-						return cookieValue;
-					}
-					
-				//Needed to allow relative paths?
-					function sameOrigin(url) {
-						// url could be relative or scheme relative or absolute
-						var host = document.location.host; // host + port
-						var protocol = document.location.protocol;
-						var sr_origin = '//' + host;
-						var origin = protocol + sr_origin;
-						// Allow absolute or scheme relative URLs to same origin
-						return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-							(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-							// or any other URL that isn't scheme relative or absolute i.e relative.
-							!(/^(\/\/|http:|https:).*/.test(url));
-					}
-				
-					function safeMethod(method) {
-						return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-					}
-
-					if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-						xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-					}
-				});
-			
-			// Submit the form using JS
-				function submitform(next_variable) {
-					if (next_variable == 'detail'){
-						$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=detail');
-					}
-					if (next_variable == 'stories'){
-						$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=stories');
-					}
-					if (next_variable == 'edit'){
-						$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=edit');
-					}
-					$('#edit_form').submit();
-					//document.forms["edit_form"].submit();
-				}		
-
-		</script>
+		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/token-input.css" type="text/css"/>	
+		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/general-style.css" type="text/css"/>
 	</head>
 
-		<!--LINKS TO OTHER PAGES -->
-		<p align="right"><a href="/logout_view">Log out.</a>
-		<a href="/sources">View sources.</a>
-		<a href="/stories">Return to the dashboard.</a></p>
-			
-			
-		<!--EDIT FORM-->
-		<form id="edit_form" method="post"> <!--action="/stories/{{Article.id}}/edit_submit/?next=detail" -->
+	<body>
+		<script type="text/javascript">
+		// Pre-populates and finds sources as you type in the source field of the form. 
+		$(document).ready(function (){
+			$("#sources").tokenInput("/sources/source_query",{
+					hintText: "Type in the names of your sources",
+					noResultsText: "No results",
+					searchingText: "Searching...",
+					prePopulate:[{% for Source in Article.sources.all %}
+									{"id":"{{Source.id}}","name":"{{Source}}"}{%if not forloop.last%},{%endif%}
+								{% endfor %}]
+			});
+		});	
+
+		//Adds any sources added to the "Add new Source" form into the source field of the form.
+		function submit_new_source(){
+			var sources = {}; 
+			// the ">" sign tells it to indicate the text in the form box. Called selectors (CSS).
+			sources.first_name=$('#new_source_form > #first_name').val(); 
+			sources.last_name=$('#new_source_form > #last_name').val();
+			sources.job_title=$('#new_source_form > #job_title').val();
+			sources.company=$('#new_source_form > #company').val();
+			sources.comments=$('#new_source_form > #comments').val();
+
+			if (sources.first_name=="" && sources.last_name==""){
+				alert("Please enter a first or last name...")
+			}
+			else{
+				$.ajax({
+					type:'POST',
+					url:'/stories/add_source_api',
+					data:JSON.stringify(sources),
+					success: function(data){
+						data = JSON.parse(data);
+						console.log(data, data.id, data.first_name + " " + data.last_name);
+						$.TokenList.add_token_api(data.id, data.first_name + " " + data.last_name);
+						$('#new_source_form').children().each(
+							function(index, value){
+								$(value).val("");
+							}
+						);
+					},
+				});
+			}
+		}
+
+		//Believe this is to replace csrf exemption?
+		$(document).ajaxSend(function(event, xhr, settings){
+			function getCookie(name){
+				var cookieValue = null;
+				if (document.cookie && document.cookie != ''){
+					var cookies = document.cookie.split(';');
+					for (var i = 0; i < cookies.length; i++){
+						var cookie = jQuery.trim(cookies[i]);
+						// Does this cookie string begin with the name we want?
+						if (cookie.substring(0, name.length + 1) == (name + '=')){
+							cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+							break;
+						}
+					}
+				}
+				return cookieValue;
+			}
+
+			//Needed to allow relative paths?
+			function sameOrigin(url){
+				// url could be relative or scheme relative or absolute
+				var host = document.location.host; // host + port
+				var protocol = document.location.protocol;
+				var sr_origin = '//' + host;
+				var origin = protocol + sr_origin;
+				// Allow absolute or scheme relative URLs to same origin
+				return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+					(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+					// or any other URL that isn't scheme relative or absolute i.e relative.
+					!(/^(\/\/|http:|https:).*/.test(url));
+			}
+		
+			function safeMethod(method){
+				return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+			}
+
+			if (!safeMethod(settings.type) && sameOrigin(settings.url)){
+				xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+			}
+		});
+
+		// Submit the form using JS
+		function submitform(next_variable){
+			if (next_variable == 'detail'){
+				$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=detail');
+			}
+			if (next_variable == 'stories'){
+				$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=stories');
+			}
+			if (next_variable == 'edit'){
+				$('#edit_form').attr('action', '/stories/{{Article.id}}/edit_submit/?next=edit');
+			}
+			$('#edit_form').submit();
+		}
+		</script>
+
+		<p align="right" class="attributes">
+			<a href="/logout_view">Log out.</a>
+			<a href="/sources">View sources.</a>
+			<a href="/stories">Return to the dashboard.</a>
+		</p>
+
+		<form id="edit_form" method="post">
 			{% csrf_token %}
-			<!--Title-->
-			<input type="text" name="title" id="title" value="{{Article.title}}" size = "100"style="font-family:Times New Roman;color:#000000;font-size:20;font-style:bold"/>
-				<br /><br />
-
-			<!--Lead-->
-			<input type="text" name="lead" id="lead" value="{{Article.lead}}" size = "120" style="font-family:Times New Roman;color:#000000;font-size:14;font-style:italic"/>
-				<br /><br />
-
-			<!--Content-->
+			<input type="text" name="title" id="title" value="{{Article.title}}" size ="60" class="form-content" style="font-size:22;font-style:bold"><br />
+			<input type="text" name="lead" id="lead" value="{{Article.lead}}" size = "140" class="form-content" style="font-size:14;font-style:italic"/><br />
 			<textarea id="content" name="content">{{Article.content}}</textarea>
-				<script type="text/javascript">
-					CKEDITOR.replace('content',
-					{
-						customConfig : '{{ STATIC_URL }}ckeditor/custom/config.js'
-						
-					});
-				</script>
-			
-			<!--Status-->
 			<select name="status" id="status">
-				  <option value="to_start"    {% if Article.status == "to_start"    %} selected {%endif%}>To start</option>
-				  <option value="in_progress" {% if Article.status == "in_progress" %} selected {%endif%}>In progress</option>
-				  <option value="almost_done" {% if Article.status == "almost_done" %} selected {%endif%}>Almost done</option>
-				  <option value="completed"   {% if Article.status == "completed"   %} selected {%endif%}>Completed</option>
-			</select> </br>	
-			
-			<!--Category-->
+				<option value="to_start"    {% if Article.status == "to_start"    %} selected {%endif%}>To start</option>
+				<option value="in_progress" {% if Article.status == "in_progress" %} selected {%endif%}>In progress</option>
+				<option value="almost_done" {% if Article.status == "almost_done" %} selected {%endif%}>Almost done</option>
+				<option value="completed"   {% if Article.status == "completed"   %} selected {%endif%}>Completed</option>
+			</select><br />
 			<select name="category" id="category">
-				  <option value="news"    {% if Article.category == "news"    %} selected {%endif%}>News</option>
-				  <option value="feature" {% if Article.category == "feature" %} selected {%endif%}>Feature</option>
-				  <option value="opinion" {% if Article.category == "opinion" %} selected {%endif%}>Opinion</option>
-				  <option value="analysis"   {% if Article.category == "analysis"  %} selected {%endif%}>Analysis</option>
-			</select> </br>	
-			
-			<!--Notes & Sources-->
-			<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Notes</text><br /><textarea name="notes" id="notes" rows="2" cols="40">{{Article.notes}}</textarea><br />
-			<text style="font-family:verdana;color:#D8D8D8;font-size:17;font-style:italic">Sources</text><br /> <input type="text" name="sources" id="sources"/> 	
-				</br></br> 
-			
-			<!--SAVE OPTIONS -->
-			<input type="button" value="Save and preview" onClick="javascript:submitform('detail')"/>&nbsp;&nbsp;
-			<input type="button" value="Save and keep editing" onClick="javascript:submitform('edit')"/>&nbsp;&nbsp;
-			<input type="button" value="Save and return to dashboard" onClick="javascript:submitform('stories')"/>
-				</br></br>	
-			
+				<option value="news"    {% if Article.category == "news"    %} selected {%endif%}>News</option>
+				<option value="feature" {% if Article.category == "feature" %} selected {%endif%}>Feature</option>
+				<option value="opinion" {% if Article.category == "opinion" %} selected {%endif%}>Opinion</option>
+				<option value="analysis"   {% if Article.category == "analysis"  %} selected {%endif%}>Analysis</option>
+			</select><br />
+			<text class="form-label">Notes</text><br /><textarea name="notes" id="notes" rows="2" cols="40">{{Article.notes}}</textarea><br />
+			<text class="form-label">Sources</text><br /><input type="text" name="sources" id="sources"/><br /> 
+			<input type="button" value="Save and preview" onClick="javascript:submitform('detail')" />&nbsp;&nbsp;
+			<input type="button" value="Save and keep editing" onClick="javascript:submitform('edit')" />&nbsp;&nbsp;
+			<input type="button" value="Save and return to dashboard" onClick="javascript:submitform('stories')" />	
 		</form>
 
-		<a href='' onClick="$('#new_source_box').slideToggle();window.scrollBy(0,100);return false;" id="add_new_source"> Add a new source<i>(Click to close this window)</i></a> <!--THE DOLLAR SIGN ANNOUNCES JQUERY. CAN ALSO BE REPLACED BY "JQUERY"-->
-			<div id="new_source_box" style="border:1px solid; width:400px;display:none;">
-				<form id="new_source_form" method="post">
-					{% csrf_token %}
-					<!--<input type="hidden" name ="article_id" value="{{Article.id}}">-->
-					First name: <input type="text" id="first_name" value="" /><br />
-					Last name: <input type="text" id="last_name" value="" /><br />
-					Job title: <input type="text" id="job_title" value="" /><br />
-					Company: <input type="text" id="company" value="" /><br />
-					Comments: <textarea id="comments" rows="2" cols="20"></textarea><br />
-					<!--Quotes: <textarea id="comments" rows="2" cols="20"></textarea><br />-->
-					<button onClick="submit_new_source(); return false;"> Save </button>
-					<!--<button onClick="submit_new_source(); return false;"> Save and add another </button>-->
-					<!--<button onClick="submit_new_source(); return false;"> Clear </button>-->
-				</form>
-			</div> <!--THE BIT INSIDE "STYLE" IS CSS  .each(function alert(this.val());	});	-->
+		<a href='' onClick="$('#new_source_box').slideToggle();window.scrollBy(0,300);return false;" id="add_new_source">
+			Add a new source <i>(Click to close this window)</i>
+		</a>
+
+		<div id="new_source_box" style="border:1px solid; width:400px;display:none;">
+			<form id="new_source_form" method="post">
+				{% csrf_token %}
+				First name: <input type="text" id="first_name" value="" /><br />
+				Last name: <input type="text" id="last_name" value="" /><br />
+				Job title: <input type="text" id="job_title" value="" /><br />
+				Company: <input type="text" id="company" value="" /><br />
+				Comments: <textarea id="comments" rows="2" cols="20"></textarea><br />
+				<button onClick="submit_new_source(); return false;">Save</button>
+			</form>
+		</div> 
+
+		<script type="text/javascript">
+			CKEDITOR.replace('content',{
+				customConfig: '{{ STATIC_URL }}ckeditor/custom/config.js'
+			});
+		</script>
 	</body>
 </html>
-

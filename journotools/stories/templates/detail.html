@@ -1,53 +1,32 @@
 <html>
-{% load stories_extras %}
+	{% load stories_extras %}
+	<head>
+		<title>{{ Article }}</title>
+		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/general-style.css" type="text/css"/>
+	</head>
 
-<head>
-	<title>{{ Article }}</title>
-</head>
+	<body class="padded-view">
+		<p align="right">
+			<a href="/logout_view">Log out</a><br/> 
+			<a href="/stories/{{Article.id}}/edit">Edit </a>or <a href="/stories/{{Article.id}}/delete">delete </a>this article.<br />
+			<a href="/stories">Return to the dashboard </a>or <a href="/sources">to your sources.</a><br/> 
+		</p>
 
-<body>
-	
-	<style type= "text/css">
-		body{
-			margin-left: 60;
-			margin-right:120;
-			margin-bottom: 200;
-			padding: 40;
-			font-size:16;
-			line-height:140%;
-			background-color:#FBF5EF;
-			}
-			
-	</style>
-	
-	<p align="right">
-		<a href="/stories/{{Article.id}}/edit">Edit</a>&nbsp
-		<a href="/stories">Return to the dashboard</a>&nbsp
-		<a href="/stories/{{Article.id}}/delete">Delete</a>&nbsp
-		Go to <a href="/sources">list of sources</a><br/> 
-		<a href="/logout_view">Log out</a>
-	</p>
+		<p align="left" class="preview">
+			<h1>{{ Article }}</h1>
+			{{ Article.pub_date }}
+			<h4><i>{{ Article.lead }}</i></h4>
+			{% autoescape off %}{{ Article.content }}{% endautoescape %}
+		</p>
 
-	<h1>    {{ Article }}          </h1>
-	<p>     {{ Article.pub_date }} </p>
-	<h4><i> {{ Article.lead }}     </h4></i>
-	
-	{% autoescape off %}
-	<p>     {{ Article.content}}   </p>
-	{% endautoescape %}
-
-	<br/> 
-	<text style="font-family:arial;color:#787878;font-size:15;font-style:italic">Status -- </text>{{ status_dict|hash:Article.status }}
-		<br/><br/> 
-	<text style="font-family:arial;color:#787878;font-size:15;font-style:italic">Category -- </text>{{ category_dict|hash:Article.category }}
-		<br/><br/> 
-	<text style="font-family:arial;color:#787878;font-size:15;font-style:italic">Notes -- </text>{{ Article.notes }}
-		<br/><br/> 
-	<text style="font-family:arial;color:#787878;font-size:15;font-style:italic">Sources -- </text><br/> 
-		{% for i in list %}
-			<a href="/sources/{{i.id}}">{{i}}</a><br/> 
-		{% endfor %}
-		<br/><br/> 
-
-</body>
+		<p align="left">
+			<text class="attributes">Sources -- </text><br/>
+			{% for i in list %}
+				<a href="/sources/{{i.id}}">{{i}}</a><br/>
+			{% endfor %}<br/>
+			<text class="attributes">Status -- </text>{{ status_dict|hash:Article.status }}<br/>
+			<text class="attributes">Category -- </text>{{ category_dict|hash:Article.category }}<br/>
+			<text class="attributes">Notes -- </text>{{ Article.notes }}
+		</p>
+	</body>
 </html>

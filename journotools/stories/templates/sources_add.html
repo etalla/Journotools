@@ -1,27 +1,27 @@
 <html>
+	<head>
+		<title>New source</title>
+		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/general-style.css" type="text/css"/>
+	</head>
 
-<head><title>New source</title></head>
+	<body>
+		<p align="right" class="attributes">
+			<a href="/logout_view">Log out.</a>
+			<a href="/sources">View sources.</a>
+			<a href="/stories">Return to the dashboard.</a>
+		</p>
+		
+		<p class="page-title">New source</h1>
 
-<body>
-
-
-	<p align="right"><a href="/logout_view">Log out.</a>
-	<a href="/sources">View sources.</a>
-	<a href="/stories">Return to the dashboard.</a></p>
-	
-	<h1>New source</h1>
-
-	<form action="/sources/add_submit" method="post">
-		{% csrf_token %}
-		First name:<input type="text" name="first_name" value="" /><br />
-		Last name:<input type="text" name="last_name" value="" /><br />
-		Job title:<input type="text" name="job_title" value="" /><br />
-		Company:<input type="text" name="company" value="" /><br />
-		Comments:<textarea name="comments" rows="10" cols="20"></textarea><br />
-		<!--Quotes: <textarea name="quotes" rows="10" cols="20"></textarea><br />-->
-		<input type="submit" value="Save"/>
-	</form>
-	
-</body>
+		<form action="/sources/add_submit" method="post" class="form-label">
+			{% csrf_token %}
+			First name:<input type="text" name="first_name" value="" /><br />
+			Last name:<input type="text" name="last_name" value="" /><br />
+			Job title:<input type="text" name="job_title" value="" /><br />
+			Company:<input type="text" name="company" value="" /><br />
+			Comments:<textarea name="comments" rows="10" cols="20"></textarea><br />
+			<input type="submit" value="Save"/>
+		</form>
+	</body>
 </html>
 

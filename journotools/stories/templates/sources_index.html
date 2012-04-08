@@ -1,116 +1,74 @@
 <html>
+	<head>
+		<title>Sources</title>
+		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/general-style.css" type="text/css"/>
+	</head>
 
-<head>
-	<title>Sources</title>
-</head>
+	<body>
+		<p align="right" class="attributes">
+			<a href="/logout_view">Log out.</a>
+			<a href="/stories">Return to the dashboard.</a>
+		</p>
+		
+		<p class ="page-title">Sources</p>
+		<p class="attributes"><a href="/sources/add">Add new source</a></p>
 
-<body>
-
-	<style type= "text/css">
-		body{
-			margin-left: 60;
-			margin-right:120;
-			margin-bottom: 200;
-			padding: 40;
-			font-size:16;
-			line-height:140%;
-			background-color:#FBF5EF;
-			}		
-
-		table{ 
-			width: 800px;
-			table-layout:fixed;
-			}
-		
-		td.small{
-			width:80px;
-			white-space: nowrap;
-			overflow:hidden;
-		}
-		
-		td.medium{
-			width:140px;
-			white-space: nowrap;
-			overflow:hidden;
-		}
-		
-		td.large{
-			width:150px;
-			white-space: nowrap;
-			overflow:hidden;
-		}
-	</style>
-	
-	
-	<p align="right"><a href="/logout_view">Log out.</a>
-	<a href="/stories">Return to the dashboard.</a></p>
-	<h1>Sources</h1>
-
-
-	<a href="/sources/add">Add new source</a>
-	
-	<br /> <br />
-	
-	<table>
-	
-		<!--FIRST ROW-->
-		
-		<tr>
-			<td class="medium">
-				{% if order_by == 'first_name' and sort_by == 'asc' %}
-						<a href='/sources/?order_by=first_name&sort_by=desc' > First name</a>
-				{% else%}
-						<a href='/sources/?order_by=first_name&sort_by=asc' > First name </a>			
-				{% endif%}
-			</td>
-			<td class="medium">
-				{% if order_by == 'last_name' and sort_by == 'asc' %}
-						<a href='/sources/?order_by=last_name&sort_by=desc' > Last name</a>
-				{% else%}
-						<a href='/sources/?order_by=last_name&sort_by=asc' > Last name</a>			
-				{% endif%}
-			</td>
-			<td class="large">
-				{% if order_by == 'company' and sort_by == 'asc' %}
-						<a href='/sources/?order_by=company&sort_by=desc' > Company</a>
-				{% else%}
-						<a href='/sources/?order_by=company&sort_by=asc' > Company</a>			
-				{% endif%}
-			</td>
-			<td class="large">Action</td>
-			<td class="large">Comments</td>
-			<td class="small" align="center">
-				{% if order_by == 'number_of_articles' and sort_by == 'asc' %}
-					<a href='/sources/?order_by=number_of_articles&sort_by=desc' >Articles</a>
-				{% else%}
-					<a href='/sources/?order_by=number_of_articles&sort_by=asc' >Articles</a>			
-				{% endif%}
-			</td>
-			<td class="small" align="center">
-				{% if order_by == 'pub_date' and sort_by == 'asc' %}
-					<a href='/sources/?order_by=pub_date&sort_by=desc' >Date created</a>
-				{% else%}
-					<a href='/sources/?order_by=pub_date&sort_by=asc' >Date created</a>			
-				{% endif%}
-			</td>
-		</tr>	
-		
-		<!--CONTENT-->
-		
-		{% for Source in source_list %}
+		<table>
 			<tr>
-				<td class="medium">{{Source.first_name}}</td>
-				<td class="medium">{{Source.last_name}}</td>
-				<td class="large">{{Source.company}}</td>
-				<td class="large"><a href="/sources/{{ Source.id }}/">  View  </a>;<a href="/sources/{{ Source.id }}/edit">  Edit  </a>;<a href="/sources/{{ Source.id }}/delete">  Delete </a></td>
-				<td class="large">{{Source.comments}}</td>
-				<td class="small" align="center">{{Source.number_of_articles}}</td>
-				<td class="small" align="center">{{Source.pub_date|date:"d/n/Y"}}</td>
+				<td class="small">
+					{% if order_by == 'first_name' and sort_by == 'asc' %}
+						<a href='/sources/?order_by=first_name&sort_by=desc'>First name</a>
+						{% else %}
+						<a href='/sources/?order_by=first_name&sort_by=asc'>First name </a>
+					{% endif %}
+				</td>
+				<td class="small">
+					{% if order_by == 'last_name' and sort_by == 'asc' %}
+						<a href='/sources/?order_by=last_name&sort_by=desc'>Last name</a>
+						{% else %}
+						<a href='/sources/?order_by=last_name&sort_by=asc'>Last name</a>
+					{% endif %}
+				</td>
+				<td class="large">
+					{% if order_by == 'company' and sort_by == 'asc' %}
+						<a href='/sources/?order_by=company&sort_by=desc'>Company</a>
+						{% else %}
+						<a href='/sources/?order_by=company&sort_by=asc'>Company</a>
+					{% endif %}
+				</td>
+				<td class="large">Action</td>
+				<td class="large">Comments</td>
+				<td class="xsmall" align="center">
+					{% if order_by == 'number_of_articles' and sort_by == 'asc' %}
+						<a href='/sources/?order_by=number_of_articles&sort_by=desc'>Articles</a>
+						{% else %}
+						<a href='/sources/?order_by=number_of_articles&sort_by=asc'>Articles</a>
+					{% endif %}
+				</td>
+				<td class="small" align="center">
+					{% if order_by == 'pub_date' and sort_by == 'asc' %}
+						<a href='/sources/?order_by=pub_date&sort_by=desc' >Date created</a>
+						{% else %}
+						<a href='/sources/?order_by=pub_date&sort_by=asc' >Date created</a>
+					{% endif %}
+				</td>
 			</tr>
-		{% endfor %}
-	</table>
 
-	<br /><br /><br />		
-</body>
+			{% for Source in source_list %}
+				<tr>
+					<td class="small">{{Source.first_name}}</td>
+					<td class="small">{{Source.last_name}}</td>
+					<td class="large">{{Source.company}}</td>
+					<td class="large">
+						<a href="/sources/{{ Source.id }}/">View</a>
+						<a href="/sources/{{ Source.id }}/edit">Edit</a>
+						<a href="/sources/{{ Source.id }}/delete">Delete</a>
+					</td>
+					<td class="large">{{Source.comments}}</td>
+					<td class="xsmall" align="center">{{Source.number_of_articles}}</td>
+					<td class="small" align="center">{{Source.pub_date|date:"d/n/Y"}}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</body>
 </html>
-<!-- THIS WILL HAVE A SEARCH FUNCTION. SORT FUNCTION BY NAME, TOPIC ETC... -->

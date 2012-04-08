@@ -9,17 +9,14 @@
 		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/general-style.css" type="text/css"/>
 	</head>
 
-	<body class="claro">
+	<body>
 		<script type="text/javascript">
 			$(document).ready(function () {
-			  $("#sources").tokenInput("/sources/source_query", {
-						hintText: "Type in the names of your sources",
-						noResultsText: "No results",
-						searchingText: "Searching...",
-						prePopulate:[	{% for Source in Article.sources.all %}
-											{"id":"{{Source.id}}","name":"{{Source}}"}{% if not forloop.last %},{% endif %}
-										{% endfor %}]
-					});
+				$("#sources").tokenInput("/sources/source_query", {
+					hintText: "Type in the names of your sources",
+					noResultsText: "No results",
+					searchingText: "Searching..."
+				});
 			});
 			
 			$(document).ajaxSend(function(event, xhr, settings) {
@@ -70,7 +67,7 @@
 				sources.company=$('#new_source_form > #company').val();
 				sources.comments=$('#new_source_form > #comments').val();
 				if (sources.first_name=="" && sources.last_name==""){
-					alert("Please enter a first or last name... DUH.")
+					alert("Please enter a first or last name.")
 				} 
 				else {
 					$.ajax({
@@ -100,12 +97,14 @@
 					$('#add_form').attr('action', '/stories/add_submit/?next=edit');
 				}
 				$('#add_form').submit();
-			}		
+			}
 		</script>
 
-		<p align="right"><a href="/logout_view">Log out.</a>
-		<a href="/sources">View sources.</a>
-		<a href="/stories">Return to the dashboard.</a></p>
+		<p align="right">
+			<a href="/logout_view">Log out.</a>
+			<a href="/sources">View sources.</a>
+			<a href="/stories">Return to the dashboard.</a>
+		</p>
 		
 		<h1 class ="page-title">New article</h1>
 
@@ -114,39 +113,32 @@
 			<text class="form-label">Title</text></br><input type="text" name="title" size = "50" value="" /><br />
 			<text class="form-label">Subhead</text></br><input type="text" name="lead" size = "120" value="" /><br />
 			<textarea id="content" name="content" value=""></textarea>
-			<script type="text/javascript">
-				CKEDITOR.replace('content',
-				{
-					customConfig : '{{ STATIC_URL }}ckeditor/custom/config.js'
-				});
-			</script>
-			
 			<select name="status">
-				<option value="to_start"    {% if Article.status == "to_start"    %} selected {%endif%}>To start</option>
-				<option value="in_progress" {% if Article.status == "in_progress" %} selected {%endif%}>In progress</option>
-				<option value="almost_done" {% if Article.status == "almost_done" %} selected {%endif%}>Almost done</option>
-				<option value="completed"   {% if Article.status == "completed"   %} selected {%endif%}>Completed</option>
+				<option value="to_start"	>To start	</option>
+				<option value="in_progress"	>In progress</option>
+				<option value="almost_done"	>Almost done</option>
+				<option value="completed"	>Completed	</option>
 			</select></br>
 			
 			<select name="category">
-				<option value="news"       {% if Article.category == "news"    %} selected {%endif%}>News</option>
-				<option value="feature"    {% if Article.category == "feature" %} selected {%endif%}>Feature</option>
-				<option value="opinion"	   {% if Article.category == "opinion" %} selected {%endif%}>Opinion</option>
-				<option value="analysis"   {% if Article.category == "analysis"  %} selected {%endif%}>Analysis</option>
+				<option value="news"	>News		</option>
+				<option value="feature"	>Feature	</option>
+				<option value="opinion"	>Opinion	</option>
+				<option value="analysis">Analysis	</option>
 			</select></br>
 
 			<text class="form-label">Sources</text></br><input type="text" name="sources" id="sources"/></br> 
 
 			<text class="form-label">Notes</text></br><textarea name="notes" rows="5" cols="50"></textarea><br /></br>
 
-			<input type="button" value="Save and preview" onClick="javascript:submitform('detail')"/>&nbsp;&nbsp;
-			<input type="button" value="Save and keep editing" onClick="javascript:submitform('edit')"/>&nbsp;&nbsp;
-			<input type="button" value="Save and return to dashboard" onClick="javascript:submitform('stories')"/>
+			<input type="button" value="Save and preview" 				onClick="javascript:submitform('detail')"/>&nbsp;&nbsp;
+			<input type="button" value="Save and keep editing" 			onClick="javascript:submitform('edit')"/>&nbsp;&nbsp;
+			<input type="button" value="Save and return to dashboard"	onClick="javascript:submitform('stories')"/>
 		</form>
-
-		</br>
 		
-		<a href='' onClick="$('#new_source_box').slideToggle();window.scrollBy(0,200);return false;" id="add_new_source">Add a new source <i>(Click to close this window)</i></a><!--THE DOLLAR SIGN ANNOUNCES JQUERY. CAN ALSO BE REPLACED BY "JQUERY"-->
+		<a href='' onClick="$('#new_source_box').slideToggle();window.scrollBy(0,300);return false;" id="add_new_source">
+			Add a new source <i>(Click to close this window)</i>
+		</a>
 		<div id="new_source_box" class="source-box">
 			<form id="new_source_form" method="post">
 				{% csrf_token %}
@@ -155,8 +147,13 @@
 				Job title:<input type="text" id="job_title" value="" /><br />
 				Company:<input type="text" id="company" value="" /><br />
 				Comments:<textarea id="comments" rows="2" cols="20"></textarea><br />
-				<button onClick="submit_new_source(); return false;"> Save </button>
+				<button onClick="submit_new_source(); return false;">Save</button>
 			</form>
 		</div>
+		<script type="text/javascript">
+			CKEDITOR.replace('content',{
+				customConfig: '{{ STATIC_URL }}ckeditor/custom/config.js'
+			});
+		</script>
 	</body>
 </html>

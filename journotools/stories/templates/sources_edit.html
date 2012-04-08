@@ -1,29 +1,26 @@
 <html>
+	<head>
+		<title>Edit {{Source}}</title>
+		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/general-style.css" type="text/css"/>
+	</head>
 
-<head><title>Edit {{Source}}</title></head>
+	<body>
+		<p align="right" class="attributes">
+			<a href="/logout_view">Log out.</a>
+			<a href="/sources">View sources.</a>
+			<a href="/stories">Return to the dashboard.</a>
+		</p>
+		
+		<p class="page-title">Edit {{Source}}</p>
 
-<body>
-	
-	<p align="right"><a href="/logout_view">Log out.</a>
-	<a href="/sources">View sources.</a>
-	<a href="/stories">Return to the dashboard.</a></p>
-	
-	<h1>Edit {{Source}}</h1>
-
-	<br /><br />
-
-	<form action="/sources/{{Source.id}}/edit_submit" method="post">
-		{% csrf_token %}
-		First name:<input type="text" name="first_name" value="{{Source.first_name}}" /><br />
-		Last name:<input type="text" name="last_name" value="{{Source.last_name}}" /><br />
-		Job title:<input type="text" name="job_title" value="{{Source.job_title}}" /><br />
-		Company:<input type="text" name="company" value="{{Source.company}}" /><br />
-		Comments:<textarea name="comments" rows="10" cols="20">{{Source.comments}}</textarea><br />
-		<!--Quotes: <textarea name="quotes" rows="10" cols="20"> {{Source.quotes}}</textarea><br />-->
-		<!-- Content: <textarea name="content" rows="2" cols="20">{{Article.content}}</textarea><br /> -->
-		<input type="submit" value="Save"/>
-	</form>
-	
-</body> 
+		<form action="/sources/{{Source.id}}/edit_submit" method="post" class="form-label">
+			{% csrf_token %}
+			First name:<input type="text" name="first_name" class="form-content" value="{{ Source.first_name }}" /><br />
+			Last name:<input type="text" name="last_name" class="form-content" value="{{ Source.last_name }}" /><br />
+			Job title:<input type="text" name="job_title" class="form-content" value="{{ Source.job_title }}" /><br />
+			Company:<input type="text" name="company" class="form-content" value="{{ Source.company }}" /><br />
+			Comments:<textarea name="comments" rows="10" cols="20" class="form-content">{{ Source.comments }}</textarea><br />
+			<input type="submit" value="Save"/>
+		</form>
+	</body> 
 </html>
-<!-- TO THIS ONE, WILL ADD: SAVE AND ADD ANOTHER; SAVE AND CONTINUE EDITING; SAVE AND CLOSE;)-->
