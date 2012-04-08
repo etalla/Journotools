@@ -6,7 +6,30 @@ body{
 	font-size:16;
 	line-height:140%;
 	background-color:#FBF5EF;
+	font-family:Times New Roman;
 }		
+
+.padded-view{
+	margin-left: 120;
+	margin-right:200;
+}
+
+.preview{
+	color:#000000;
+}
+
+.form-content{
+	color:#000000;
+	font-family:Times New Roman;
+	font-style:normal;
+}
+
+.attributes{
+	font-family:arial;
+	color:#787878;
+	font-size:13;
+	font-style:italic;
+}
 
 .form-label{
 	color:#D8D8D8;
@@ -16,15 +39,13 @@ body{
 
 a{
 	font-family:verdana;
-}
-
-a:link{
-	color:#D8D8D8;
+	font-size:13;
 }
 
 .page-title{
 	font-family:MS Sans Serif;
 	color:9999FF;
+	font-size:22;
 }
 
 .source-box{
@@ -32,3 +53,41 @@ a:link{
 	width:400px;
 	display:none;
 }
+
+table{ 
+	width: 800px;
+	table-layout:fixed;
+	}
+
+td.xsmall{
+	width:80px;
+	white-space: nowrap;
+	overflow:hidden;
+}
+
+td.small{
+	width:130px;
+	white-space: nowrap;
+	overflow:hidden;
+}
+
+td.medium{
+	width:170px;
+	white-space: nowrap;
+	overflow:hidden;
+}
+	
+td.large{
+	width:150px;
+	white-space: nowrap;
+	overflow:hidden;
+}
+
+td.xl{
+	width:280px;
+	white-space: nowrap;
+	overflow:hidden;
+}
+
+
+		
