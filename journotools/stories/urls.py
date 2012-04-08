@@ -6,14 +6,14 @@ import django.contrib.auth.views
 
 urlpatterns = patterns('stories.views',
 	(r'^$','index'),
-	#LOGIN PAGES. WILL HAVE TO CHANGE THE URLS TO REMOVE 'STORIES' IN FRONT.
+	#LOGIN PAGES
 	(r'^login_page$','login_page'),
 	(r'^register$','register'),
 	(r'^login_submit$','login_submit'),
 	(r'^logout_view$','logout_view'),
 	(r'^login_error$','login_error'),
 	(r'^account_disabled$','account_disabled'),
-	#STORIES URL
+	#STORIES
 	(r'^stories/$','stories'),
 	(r'^stories/add$','add'),
 	(r'^stories/add_submit','add_submit'),
@@ -35,10 +35,4 @@ urlpatterns = patterns('stories.views',
 	(r'^sources/(?P<source_id>\d+)/edit_submit$', 'sources_edit_submit'),
 	(r'^sources/(?P<source_id>\d+)/delete$', 'sources_delete'),
 	(r'^sources/(?P<source_id>\d+)/delete_submit$', 'sources_delete_submit'),
-	# (r'^quotes$','quotes'),
-	# (r'^quotes/(?P<quote_id>\d+)$','quote_detail'),
-	# (r'^quotes/(?P<quote_id>\d+)/edit$','quote_edit'),
-	# (r'^new_quote$','new_quote'),
-	# (r'^stories/submit_new_quote$','submit_new_quote'),
-	# (r'^stories/submit_new_transcript$','submit_new_transcript'),
 )
