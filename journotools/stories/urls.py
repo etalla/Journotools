@@ -13,6 +13,7 @@ urlpatterns = patterns('stories.views',
 	(r'^logout_view$','logout_view'),
 	(r'^login_error$','login_error'),
 	(r'^account_disabled$','account_disabled'),
+	(r'^profile','profile'),
 	#STORIES
 	(r'^stories/$','stories'),
 	(r'^stories/add$','add'),

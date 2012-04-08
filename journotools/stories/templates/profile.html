@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<title>My profile</title>
+		<link rel="stylesheet" href="{{ STATIC_URL }}CSS/general-style.css" type="text/css"/>
+	</head>
+	
+	<body>
+	
+	<p class = "page-title"> My profile. </p>
+	
+	<p align="right" class="attributes">
+		<a href="/logout_view">Log out.</a>
+		<a href="/sources">View sources.</a>
+		<a href="/stories">Return to the dashboard.</a>
+	</p>
+
+	<p align="left">
+		Username: {{ username }} <br />
+		First name: {{ first_name }} <br />
+		Last name: {{ last_name }} <br />
+		Email: {{ email }} <br />
+
+		Password: want to change your password? 
+	</p>
+	
+	</body>
+</html>

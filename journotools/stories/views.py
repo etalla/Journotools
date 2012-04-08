@@ -85,6 +85,16 @@ def logout_view(request):
 	logout(request)
 	return render_to_response('logout_view.html',
 		context_instance=RequestContext(request))
+		
+@login_required(login_url='/login_page')
+def profile(request):
+	u = request.user
+	details = {'username':u.username,'first_name':u.first_name,'last_name':u.last_name,'email':u.email}
+	for i in details:
+		if details[i] == '':
+			details[i] = "None given"	
+	return render_to_response('profile.html', {'username':details['username'],'first_name':details['first_name'],'last_name':details['last_name'],'email':details['email']},
+		context_instance=RequestContext(request))
 
 #**************************************************************     ARTICLES    ****************************************************************************
 #**************************************************************     ARTICLES    ****************************************************************************
