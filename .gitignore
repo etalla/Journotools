@@ -7,3 +7,10 @@ Scripts
 *.pyc
 journotools/static
 journotools/local_settings.py
+journotools/wsgi.py
+journotools/manage.py
+manage.py
+Procfile
+psycopg2-wininst.log
+Removepsycopg2.exe
+the_python.py
